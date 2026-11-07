@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#c5ef3d">
+<title>Order received | Oracle (Cyrech Marketplace)</title>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+:root{--lemon:#c5ef3d;--ink:#111;--mute:#5b5e56;--line:#e4e6df;--soft:#f5f9e9}
+*{box-sizing:border-box}
+body{margin:0;background:#fff;color:var(--ink);font-family:'Bricolage Grotesque',system-ui,sans-serif;line-height:1.55}
+a{color:inherit}
+.topbar{background:#111;color:#fff;padding:.8rem max(1rem,calc((100vw - 1000px)/2));display:flex;justify-content:space-between;align-items:center;gap:1rem}
+.brand{color:#fff;text-decoration:none;font-weight:800;font-size:1.25rem}
+.brand span{color:var(--lemon)}
+.language-switch{padding:.4rem;border:1px solid #555;border-radius:5px;background:#111;color:#fff}
+main{max-width:780px;margin:0 auto;padding:3rem 1rem}
+.card{padding:clamp(1.3rem,4vw,2.4rem);border:1px solid var(--line);border-radius:12px;box-shadow:0 10px 30px #11110a}
+.check{display:grid;place-items:center;width:3.3rem;height:3.3rem;border-radius:50%;background:var(--lemon);font-size:1.7rem;font-weight:800}
+h1{margin:.8rem 0 .4rem;font-size:clamp(2rem,5vw,3rem);line-height:1.06;letter-spacing:-.04em}
+.lead{color:var(--mute)}
+.notice{padding:.9rem 1rem;border-radius:7px;background:var(--soft);border-left:4px solid var(--lemon)}
+.details{display:grid;gap:.45rem;margin:1.2rem 0}
+.row{display:flex;justify-content:space-between;gap:1rem;padding:.45rem 0;border-bottom:1px solid var(--line)}
+.row span:last-child{text-align:right;font-weight:700}
+.instructions{padding:1rem;background:#111;color:#fff;border-radius:8px}
+.instructions h2{margin:0 0 .6rem;color:var(--lemon);font-size:1.1rem}
+.instructions dl{display:grid;grid-template-columns:130px 1fr;gap:.35rem .7rem;margin:0}
+.instructions dt{color:#c8c8c8}
+.instructions dd{margin:0;overflow-wrap:anywhere;font-weight:700}
+.actions{display:flex;gap:.7rem;flex-wrap:wrap;margin-top:1.2rem}
+.button{display:inline-flex;padding:.65rem .9rem;border-radius:6px;background:var(--lemon);color:#111;font-weight:800;text-decoration:none}
+.button.secondary{border:1px solid var(--line);background:#fff}
+.status{color:var(--mute);font-size:.87rem}
+.footer{background:#111;color:#eee;text-align:center;padding:1.1rem;font-size:.84rem}
+.footer a{color:var(--lemon);text-decoration:none}
+[hidden]{display:none!important}
+@media(max-width:500px){.row{display:grid;gap:.1rem}.row span:last-child{text-align:left}.instructions dl{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header class="topbar"><a class="brand" href="services.html">Oracle <span>(Cyrech Marketplace)</span></a><label for="languageSwitch" data-i18n="language-label">Language</label><select class="language-switch" id="languageSwitch"><option value="en">English</option><option value="fr">Français</option></select></header>
+<main>
+  <section class="card" aria-labelledby="receiptTitle">
+    <span class="check" aria-hidden="true">✓</span>
+    <h1 id="receiptTitle" data-i18n="order-received">Order received</h1>
+    <p class="lead">Your order is recorded. This page does not mean your transfer has been verified or received.</p>
+    <div class="notice" id="paymentNotice" data-i18n="payment-pending-note">Payment remains pending until the seller independently confirms receipt. Follow these seller-provided instructions and keep your transfer reference.</div>
+    <div class="details" id="orderDetails"><p>Loading order details…</p></div>
+    <section class="instructions" id="paymentInstructions" hidden>
+      <h2>Seller payment instructions</h2>
+      <dl id="instructionDetails"></dl>
+    </section>
+    <p class="status" id="emailStatus" role="status" aria-live="polite"></p>
+    <div class="actions">
+      <a class="button" id="trackingLink" href="track.html" data-i18n="nav-track">Track this order</a>
+      <a class="button secondary" href="services.html">Continue shopping</a>
+    </div>
+  </section>
+</main>
+<footer class="footer">Oracle (Cyrech Marketplace) · <a href="mailto:kamegnesandra@gmail.com">kamegnesandra@gmail.com</a></footer>
+<script src="supabase-config.js"></script>
+<script src="language.js"></script>
+<script type="module">
+import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
+const config=window.MARKETPLACE_SUPABASE_CONFIG;
+const code=(new URLSearchParams(location.search).get('code')||'').toUpperCase();
+const emailState=new URLSearchParams(location.search).get('email');
+const $=selector=>document.querySelector(selector);
+const money=value=>new Intl.NumberFormat('fr-CM',{style:'currency',currency:'XAF',maximumFractionDigits:0}).format(Number(value));
+const safe=value=>String(value??'').replace(/[&<>"']/g,char=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
+$('#trackingLink').href=`track.html?code=${encodeURIComponent(code)}`;
+if(emailState==='sent')$('#emailStatus').dataset.i18n='receipt-email-sent';
+else $('#emailStatus').dataset.i18n='receipt-email-failed';
+window.applyMarketplaceLanguage?.(localStorage.getItem('oracle-language')||'en');
+async function loadOrder(){
+  if(!config?.url||!config?.anonKey)throw new Error('Supabase is not configured.');
+  if(!/^[A-F0-9]{20}$/.test(code))throw new Error('The tracking code is missing or invalid.');
+  const supabase=createClient(config.url,config.anonKey);
+  const {data:sessionData,error:sessionError}=await supabase.auth.getSession();
+  if(sessionError)throw sessionError;
+  if(!sessionData.session)throw new Error('Sign in to the buyer account used at checkout to view payment instructions.');
+  const {data:order,error}=await supabase.from('marketplace_orders')
+    .select('tracking_code,product_title,quantity,total_xaf,payment_method,payment_instructions,payment_status,order_status,buyer_email')
+    .eq('tracking_code',code).single();
+  if(error)throw new Error('Could not load this order from your buyer account.');
+  if(order.buyer_email.toLowerCase()!==sessionData.session.user.email.toLowerCase())throw new Error('This order belongs to a different account.');
+  $('#orderDetails').innerHTML=`
+    <div class="row"><span>Product</span><span>${safe(order.product_title)}</span></div>
+    <div class="row"><span>Quantity</span><span>${order.quantity}</span></div>
+    <div class="row"><span>Total</span><span>${money(order.total_xaf)}</span></div>
+    <div class="row"><span>Payment status</span><span>${order.payment_status==='received'?'Payment received':'Payment pending'}</span></div>
+    <div class="row"><span>Order status</span><span>${safe(order.order_status.replaceAll('_',' '))}</span></div>
+    <div class="row"><span>Tracking code</span><span>${safe(order.tracking_code)}</span></div>`;
+  $('#paymentNotice').textContent=order.payment_status==='received'
+    ?'The seller has confirmed your payment. Contact support if you believe this is incorrect.'
+    :'Payment remains pending until the seller independently confirms receipt. Follow these seller-provided instructions and keep your transfer reference.';
+  $('#paymentNotice').dataset.i18n=order.payment_status==='received'?'payment-confirmed-note':'payment-pending-note';
+  window.applyMarketplaceLanguage?.(localStorage.getItem('oracle-language')||'en');
+  const instructions=order.payment_instructions||{};
+  const labels={method:'Payment method',account_name:'Account name',account_number:'Account / mobile number',bank_name:'Bank'};
+  $('#instructionDetails').innerHTML=Object.entries(labels).filter(([key])=>instructions[key]).map(([key,label])=>`<dt>${label}</dt><dd>${safe(instructions[key])}</dd>`).join('');
+  $('#paymentInstructions').hidden=false;
+}
+loadOrder().catch(error=>{$('#orderDetails').textContent=error.message;});
+</script>
+</body>
+</html>

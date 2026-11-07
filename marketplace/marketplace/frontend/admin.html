@@ -1,0 +1,468 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#c5ef3d">
+<title>Account &amp; admin | Oracle (Cyrech Marketplace)</title>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#fff;--card:#fff;--ink:#111;--mute:#5b5e56;--line:#e4e6df;--teal:#557500;--gold:#c5ef3d}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:'Bricolage Grotesque',system-ui,sans-serif;line-height:1.5}
+a{color:inherit}
+input,select,textarea,button{font:inherit}
+a:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible,button:focus-visible{outline:3px solid #ff9900;outline-offset:2px}
+.topbar{background:#111;color:#fff;padding:.8rem max(1rem,calc((100vw - 1200px)/2));display:flex;align-items:center;justify-content:space-between;gap:1rem}
+.logo{color:#fff;text-decoration:none;font-size:1.5rem;font-weight:800;letter-spacing:-.04em}
+.logo span{color:var(--gold)}
+.language-switch{padding:.4rem;border:1px solid #555;border-radius:5px;background:#111;color:#fff}
+.top-links{display:flex;gap:1rem;align-items:center;flex-wrap:wrap}
+.top-links a{color:#fff;text-decoration:none;font-size:.9rem}
+.top-links a:hover{text-decoration:underline}
+.banner{background:#111;color:#fff;padding:.55rem max(1rem,calc((100vw - 1200px)/2));font-size:.88rem}
+main{max-width:1000px;margin:0 auto;padding:2rem 1rem 3rem}
+.intro{margin-bottom:1.2rem}
+.eyebrow{color:var(--teal);font-size:.75rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase}
+h1{font-size:clamp(2rem,5vw,3rem);line-height:1.05;letter-spacing:-.04em;margin:.4rem 0 .5rem}
+.intro p{margin:0;color:var(--mute)}
+.notice,.panel{padding:1.2rem;margin-bottom:1rem;background:var(--card);border:1px solid var(--line);border-radius:9px;box-shadow:0 5px 18px #17212b0a}
+.notice{border-left:4px solid var(--gold)}
+.notice h2,.panel h2{margin:0 0 .5rem;font-size:1.2rem}
+.notice ol{margin:.5rem 0;padding-left:1.3rem}
+.notice li+li{margin-top:.3rem}
+.notice code{overflow-wrap:anywhere}
+.panel p{color:var(--mute)}
+.auth-form,.product-form{display:grid;gap:.7rem;max-width:560px}
+.auth-form label,.product-form label{display:grid;gap:.25rem;font-size:.85rem;font-weight:600}
+.auth-form input,.auth-form select,.product-form input,.product-form select,.product-form textarea{width:100%;padding:.65rem .7rem;border:1px solid #b8c0c4;border-radius:5px;background:#fff;color:#17212b}
+.product-form textarea{min-height:100px;resize:vertical}
+.actions{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center;margin-top:.3rem}
+.button{border:1px solid var(--gold);border-radius:5px;background:var(--gold);color:#111;padding:.6rem .9rem;font-weight:700;cursor:pointer}
+.button.secondary{border-color:var(--line);background:#fff}
+.button.danger{border-color:#b42318;background:#b42318;color:#fff}
+.status{min-height:1.5rem;margin:.5rem 0 0;color:#45535b;font-size:.88rem}
+.status[data-kind=error]{color:#a32222}
+.status[data-kind=success]{color:#17643b}
+.account-heading{display:flex;justify-content:space-between;align-items:flex-start;gap:1rem;flex-wrap:wrap}
+.badge{display:inline-block;padding:.2rem .55rem;border-radius:99px;background:#e2f1ef;color:#075b5e;font-size:.76rem;font-weight:800;text-transform:capitalize}
+.stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.7rem;margin:1rem 0}
+.stat{padding:.8rem;border:1px solid var(--line);border-radius:7px;background:#f8faf9}
+.stat strong{display:block;font-size:1.25rem}
+.stat span{color:var(--mute);font-size:.8rem}
+.listing-list{display:grid;gap:.65rem;margin-top:.8rem}
+.listing{display:grid;grid-template-columns:72px minmax(0,1fr) auto;align-items:center;gap:.8rem;padding:.7rem;border:1px solid var(--line);border-radius:7px}
+.listing img{width:72px;height:60px;object-fit:cover;border-radius:5px;background:#e6e9e9}
+.listing h3{margin:0;font-size:.95rem}
+.listing p{margin:.15rem 0;color:var(--mute);font-size:.8rem}
+.empty{padding:.8rem;border:1px dashed var(--line);border-radius:7px;color:var(--mute)}
+[hidden]{display:none!important}
+.footer{background:#111;color:#eee;text-align:center;padding:1.15rem 1rem;font-size:.84rem}
+.footer a{color:var(--gold);text-decoration:none}
+@media(max-width:600px){.topbar{align-items:flex-start;flex-direction:column}.stats{grid-template-columns:1fr}.listing{grid-template-columns:58px minmax(0,1fr)}.listing img{width:58px;height:55px}.listing .actions{grid-column:1/-1}}
+</style>
+</head>
+<body>
+<header class="topbar">
+  <a class="logo" href="index.html" aria-label="Oracle Cyrech Marketplace home">Oracle<span> (Cyrech Marketplace)</span></a>
+  <nav class="top-links" aria-label="Main navigation">
+    <a href="services.html" data-i18n="nav-products">Products</a>
+    <a href="track.html" data-i18n="nav-track">Track order</a>
+    <a href="contact.html" data-i18n="nav-contact">Contact</a>
+    <a href="about.html" data-i18n="nav-about">About &amp; policies</a>
+    <a href="index.html" data-i18n="nav-home">Home</a>
+    <label for="languageSwitch" data-i18n="language-label">Language</label><select class="language-switch" id="languageSwitch" aria-label="Language"><option value="en">English</option><option value="fr">Français</option></select>
+  </nav>
+</header>
+<div class="banner">Marketplace accounts · Buyers, sellers, and administrators</div>
+<main>
+  <section class="intro">
+    <span class="eyebrow">Your Marketplace account</span>
+    <h1>Welcome to your account</h1>
+    <p>Create a buyer or seller account, or sign in. Administrator access is granted separately and cannot be selected at public sign-up.</p>
+  </section>
+  <section class="notice" id="setupNotice">
+    <h2>Connect your Supabase project</h2>
+    <p>This account portal needs a Supabase project. Setup is not complete until the schema is installed and the project credentials are configured.</p>
+    <ol>
+      <li>Run <code>database/supabase_marketplace.sql</code> in your Supabase SQL Editor.</li>
+      <li>Copy the project URL and public anon/publishable key into <code>frontend/supabase-config.js</code>.</li>
+      <li>To appoint an administrator, sign up for an account first, then set its profile role to <code>admin</code> in Supabase SQL Editor. Never put a service-role key in the frontend.</li>
+    </ol>
+  </section>
+  <section class="panel" id="authPanel" hidden>
+    <h2 id="authTitle">Sign in</h2>
+    <p>Use your email and password. Choose buyer or seller when creating a new account.</p>
+    <form class="auth-form" id="authForm">
+      <label id="nameWrap" hidden>Full name<input id="displayName" name="displayName" autocomplete="name" maxlength="100"></label>
+      <label>Email<input id="email" name="email" type="email" autocomplete="email" required></label>
+      <label>Password<input id="password" name="password" type="password" autocomplete="current-password" minlength="8" required></label>
+      <label id="roleWrap" hidden>Account type
+        <select id="accountRole" name="role"><option value="buyer">Buyer</option><option value="seller">Seller</option></select>
+      </label>
+      <div class="actions">
+        <button class="button" type="submit" id="submitAuth">Sign in</button>
+        <button class="button secondary" type="button" id="toggleAuth">Create an account</button>
+      </div>
+    </form>
+    <p class="status" id="authStatus" role="status" aria-live="polite"></p>
+  </section>
+  <section class="panel" id="accountPanel" hidden>
+    <div class="account-heading">
+      <div><h2 id="welcomeHeading">Your account</h2><span class="badge" id="roleBadge"></span></div>
+      <button class="button secondary" type="button" id="signOut">Sign out</button>
+    </div>
+    <p class="status" id="accountStatus" role="status" aria-live="polite"></p>
+  </section>
+  <section class="panel" id="buyerPanel" hidden>
+    <h2>Buyer account</h2>
+    <p>Browse the catalog, compare seller listings, and contact the seller to confirm product details, availability, and delivery before purchase.</p>
+    <a class="button" href="services.html">Browse products</a>
+    <h3>My orders</h3>
+    <div class="listing-list" id="buyerOrders"></div>
+  </section>
+  <section class="panel" id="sellerPanel" hidden>
+    <h2>Seller workspace</h2>
+    <p>Submit a product for review. New listings remain pending until an administrator approves them. Prices are entered in CFA francs (XAF).</p>
+    <form class="product-form" id="productForm">
+      <label>Product name<input name="title" maxlength="140" minlength="3" required></label>
+      <label>Category<select name="category_id" id="sellerCategory" required></select></label>
+      <label>Description<textarea name="description" maxlength="3000" required></textarea></label>
+      <label>Price (CFA francs / XAF)<input name="price_xaf" type="number" min="0" step="1" required></label>
+      <label>Quantity in stock<input name="stock" type="number" min="0" step="1" value="1" required></label>
+      <label>City in Cameroon<input name="city" maxlength="100" placeholder="e.g. Yaoundé" required></label>
+      <label>Product image URL (optional)<input name="image_url" type="url" placeholder="https://..."></label>
+      <div class="actions"><button class="button" type="submit">Submit listing for review</button></div>
+    </form>
+    <p class="status" id="sellerStatus" role="status" aria-live="polite"></p>
+    <h3>Your listings</h3>
+    <div class="listing-list" id="sellerListings"></div>
+    <section class="panel">
+      <h2 data-i18n="seller-payment-title">Seller payment details</h2>
+      <p>These are your payout details. Buyers select a payment method at checkout; they do not enter seller account details.</p>
+      <form class="product-form" id="sellerPaymentForm">
+        <h3>MTN Mobile Money</h3>
+        <label>MTN number<input name="mtn_number" maxlength="32"></label>
+        <label>Account holder name<input name="mtn_account_name" maxlength="100"></label>
+        <h3>Orange Money</h3>
+        <label>Orange number<input name="orange_number" maxlength="32"></label>
+        <label>Account holder name<input name="orange_account_name" maxlength="100"></label>
+        <h3>Bank transfer</h3>
+        <label>Bank name<input name="bank_name" maxlength="120"></label>
+        <label>Account holder name<input name="bank_account_name" maxlength="100"></label>
+        <label>Account number<input name="bank_account_number" maxlength="80"></label>
+        <button class="button" type="submit" data-i18n="save-payment">Save payment details</button>
+      </form>
+      <p class="status" id="sellerPaymentStatus" role="status" aria-live="polite"></p>
+    </section>
+    <h2 data-i18n="seller-orders-title">Orders for your store</h2>
+    <div class="listing-list" id="sellerOrders"></div>
+    <section class="panel">
+      <h2 data-i18n="tracking-update-title">Add a shipment update</h2>
+      <form class="product-form" id="trackingUpdateForm">
+        <label>Order<select name="order_id" id="sellerOrderSelect" required></select></label>
+        <label>Shipment status<select name="status_label" required><option value="processing">Processing</option><option value="shipped">Shipped</option><option value="in_transit">In transit</option><option value="out_for_delivery">Out for delivery</option><option value="delivered">Delivered</option></select></label>
+        <label>Location name or town<input name="location_label" maxlength="160" placeholder="e.g. Douala, Cameroon"></label>
+        <label>Update note<textarea name="note" maxlength="500"></textarea></label>
+        <label>Latitude (optional)<input name="latitude" id="sellerLatitude" type="number" step="0.000001" min="-90" max="90"></label>
+        <label>Longitude (optional)<input name="longitude" id="sellerLongitude" type="number" step="0.000001" min="-180" max="180"></label>
+        <button class="button secondary" type="button" id="shareGps" data-i18n="share-gps">Use my current GPS point</button>
+        <button class="button" type="submit" data-i18n="publish-update">Post shipment update</button>
+      </form>
+      <p class="status" id="trackingUpdateStatus" role="status" aria-live="polite"></p>
+    </section>
+  </section>
+  <section class="panel" id="adminPanel" hidden>
+    <h2>Marketplace administration</h2>
+    <p>Review and moderate product listings. Database row-level security also checks administrator permissions.</p>
+    <div class="stats" id="adminStats"></div>
+    <h3>Listings awaiting review</h3>
+    <div class="listing-list" id="pendingListings"></div>
+    <h3>Recently submitted listings</h3>
+    <div class="listing-list" id="allListings"></div>
+    <p class="status" id="adminStatus" role="status" aria-live="polite"></p>
+  </section>
+</main>
+<footer class="footer">© 2026 Oracle (Cyrech Marketplace) · <a href="services.html" data-i18n="nav-products">Shop products</a> · <a href="track.html" data-i18n="nav-track">Track order</a> · <a href="mailto:kamegnesandra@gmail.com">kamegnesandra@gmail.com</a></footer>
+<script src="supabase-config.js"></script>
+<script src="language.js"></script>
+<script type="module">
+import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
+
+const config=window.MARKETPLACE_SUPABASE_CONFIG;
+const configured=Boolean(config?.url&&config?.anonKey);
+const $=selector=>document.querySelector(selector);
+const status=(element,message,kind='')=>{element.textContent=message;element.dataset.kind=kind};
+const escapeHtml=value=>String(value??'').replace(/[&<>"']/g,char=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
+const money=value=>new Intl.NumberFormat('fr-CM',{style:'currency',currency:'XAF',maximumFractionDigits:0}).format(Number(value));
+let supabase;
+let signingUp=false;
+let currentUser=null;
+let categories=[];
+
+function showPanel(id,show){$(id).hidden=!show}
+function setAuthMode(createAccount){
+  signingUp=createAccount;
+  $('#authTitle').textContent=createAccount?'Create your account':'Sign in';
+  $('#submitAuth').textContent=createAccount?'Create account':'Sign in';
+  $('#toggleAuth').textContent=createAccount?'I already have an account':'Create an account';
+  $('#nameWrap').hidden=!createAccount;
+  $('#roleWrap').hidden=!createAccount;
+  $('#password').autocomplete=createAccount?'new-password':'current-password';
+  status($('#authStatus'),'');
+}
+function listingMarkup(product,admin=false){
+  const image=product.image_url&&/^https:\/\//i.test(product.image_url)?product.image_url:'';
+  const city=product.city||'Cameroon';
+  return `<article class="listing">
+    <img src="${escapeHtml(image)}" alt="" loading="lazy">
+    <div><h3>${escapeHtml(product.title)}</h3><p>${money(product.price_xaf)} · ${escapeHtml(city)} · ${escapeHtml(product.status)}</p></div>
+    ${admin&&product.status==='pending'?`<div class="actions"><button class="button" type="button" data-review="${escapeHtml(product.id)}" data-status="active">Approve</button><button class="button danger" type="button" data-review="${escapeHtml(product.id)}" data-status="rejected">Reject</button></div>`:''}
+  </article>`;
+}
+function bindReviewButtons(){
+  document.querySelectorAll('[data-review]').forEach(button=>button.addEventListener('click',()=>reviewListing(button.dataset.review,button.dataset.status)));
+}
+async function loadCategories(){
+  const {data,error}=await supabase.from('marketplace_categories').select('id,name').order('name');
+  if(error)throw error;
+  categories=data;
+  $('#sellerCategory').innerHTML=categories.map(item=>`<option value="${escapeHtml(item.id)}">${escapeHtml(item.name)}</option>`).join('');
+}
+async function loadSellerListings(){
+  const {data,error}=await supabase.from('marketplace_products').select('id,title,price_xaf,city,status,image_url').eq('owner_id',currentUser.id).order('created_at',{ascending:false});
+  if(error)throw error;
+  $('#sellerListings').innerHTML=data.length?data.map(product=>listingMarkup(product)).join(''):'<p class="empty">You have not submitted any products yet.</p>';
+}
+async function loadSellerPayment(){
+  const {data,error}=await supabase.from('marketplace_seller_payment_methods')
+    .select('mtn_number,mtn_account_name,orange_number,orange_account_name,bank_name,bank_account_name,bank_account_number')
+    .eq('seller_id',currentUser.id).maybeSingle();
+  if(error)throw error;
+  const form=$('#sellerPaymentForm');
+  for(const field of ['mtn_number','mtn_account_name','orange_number','orange_account_name','bank_name','bank_account_name','bank_account_number']){
+    form.elements[field].value=data?.[field]||'';
+  }
+}
+async function loadBuyerOrders(){
+  const {data,error}=await supabase.from('marketplace_orders')
+    .select('id,tracking_code,product_title,total_xaf,payment_status,order_status,created_at')
+    .eq('buyer_id',currentUser.id).order('created_at',{ascending:false});
+  if(error)throw error;
+  $('#buyerOrders').innerHTML=data.length?data.map(order=>`<article class="listing">
+    <div><h3>${escapeHtml(order.product_title)}</h3><p>${money(order.total_xaf)} · ${escapeHtml(order.payment_status)} · ${escapeHtml(order.order_status)}</p><p>Tracking: ${escapeHtml(order.tracking_code)}</p></div>
+    <a class="button" href="track.html?code=${encodeURIComponent(order.tracking_code)}">Track</a></article>`).join(''):'<p class="empty">No orders yet.</p>';
+}
+async function loadSellerOrders(){
+  const {data,error}=await supabase.from('marketplace_orders')
+    .select('id,tracking_code,product_title,quantity,total_xaf,buyer_name,buyer_email,buyer_phone,delivery_address,payment_status,order_status,created_at')
+    .eq('seller_id',currentUser.id).order('created_at',{ascending:false});
+  if(error)throw error;
+  $('#sellerOrders').innerHTML=data.length?data.map(order=>`<article class="listing">
+    <div><h3>${escapeHtml(order.product_title)}</h3><p>${money(order.total_xaf)} · Qty ${order.quantity} · ${escapeHtml(order.payment_status)} · ${escapeHtml(order.order_status)}</p>
+    <p>Buyer: ${escapeHtml(order.buyer_name)} · ${escapeHtml(order.buyer_phone)} · ${escapeHtml(order.buyer_email)}</p>
+    <p>Delivery: ${escapeHtml(order.delivery_address)} · Tracking: ${escapeHtml(order.tracking_code)}</p>
+    <div class="actions">
+      ${order.payment_status==='pending'?`<button class="button" type="button" data-confirm-payment="${escapeHtml(order.id)}">Confirm payment received</button>`:'<span class="badge">Payment received</span>'}
+      <a class="button secondary" href="track.html?code=${encodeURIComponent(order.tracking_code)}">View tracking</a>
+    </div></div></article>`).join(''):'<p class="empty">No orders have been placed for your listings.</p>';
+  $('#sellerOrderSelect').innerHTML='<option value="">Select an order</option>'+data.filter(order=>!['delivered','cancelled'].includes(order.order_status)).map(order=>`<option value="${escapeHtml(order.id)}">${escapeHtml(order.tracking_code)} · ${escapeHtml(order.product_title)}</option>`).join('');
+  document.querySelectorAll('[data-confirm-payment]').forEach(button=>button.addEventListener('click',()=>confirmPayment(button.dataset.confirmPayment)));
+}
+async function confirmPayment(orderId){
+  if(!confirm('Only confirm after you independently verify the transfer in your MTN, Orange, or bank account. Mark this order payment received?'))return;
+  status($('#sellerPaymentStatus'),'Updating the order…');
+  const {data,error}=await supabase.from('marketplace_orders').update({payment_status:'received'}).eq('id',orderId).eq('seller_id',currentUser.id).select('id').single();
+  if(error){status($('#sellerPaymentStatus'),`Could not update payment status: ${error.message}`,'error');return}
+  const {error:emailError}=await supabase.functions.invoke('order-notification',{body:{order_id:data.id,event:'payment_received'}});
+  if(emailError)status($('#sellerPaymentStatus'),`Payment marked received, but confirmation email could not be sent: ${emailError.message}`,'error');
+  else status($('#sellerPaymentStatus'),'Payment marked received. Confirmation email sent to buyer and seller.','success');
+  try{await Promise.all([loadSellerOrders(),loadBuyerOrders()])}catch(loadError){status($('#sellerPaymentStatus'),`Payment was updated, but order lists could not refresh: ${loadError.message}`,'error')}
+}
+async function loadAdmin(){
+  const [profilesResult,productsResult,pendingResult]=await Promise.all([
+    supabase.from('marketplace_profiles').select('id,role'),
+    supabase.from('marketplace_products').select('id,title,price_xaf,city,status,image_url,created_at').order('created_at',{ascending:false}).limit(30),
+    supabase.from('marketplace_products').select('id,title,price_xaf,city,status,image_url').eq('status','pending').order('created_at',{ascending:false})
+  ]);
+  if(profilesResult.error)throw profilesResult.error;
+  if(productsResult.error)throw productsResult.error;
+  if(pendingResult.error)throw pendingResult.error;
+  const profiles=profilesResult.data;
+  $('#adminStats').innerHTML=[
+    ['Accounts',profiles.length],
+    ['Buyers',profiles.filter(profile=>profile.role==='buyer').length],
+    ['Sellers',profiles.filter(profile=>profile.role==='seller').length]
+  ].map(([label,value])=>`<div class="stat"><strong>${value}</strong><span>${label}</span></div>`).join('');
+  $('#pendingListings').innerHTML=pendingResult.data.length?pendingResult.data.map(product=>listingMarkup(product,true)).join(''):'<p class="empty">There are no listings awaiting review.</p>';
+  $('#allListings').innerHTML=productsResult.data.length?productsResult.data.map(product=>listingMarkup(product,true)).join(''):'<p class="empty">No product listings have been submitted.</p>';
+  bindReviewButtons();
+}
+async function showAccount(user){
+  currentUser=user;
+  const {data:profile,error}=await supabase.from('marketplace_profiles').select('display_name,role').eq('id',user.id).single();
+  if(error)throw new Error(`Could not load your Marketplace profile: ${error.message}`);
+  showPanel('#authPanel',false);
+  showPanel('#accountPanel',true);
+  $('#welcomeHeading').textContent=`Welcome, ${profile.display_name||user.email}`;
+  $('#roleBadge').textContent=profile.role;
+  $('#roleBadge').className='badge';
+  ['#buyerPanel','#sellerPanel','#adminPanel'].forEach(id=>showPanel(id,false));
+  status($('#accountStatus'),user.email||'');
+  if(profile.role==='buyer'){
+    showPanel('#buyerPanel',true);
+    await loadBuyerOrders();
+  }
+  if(profile.role==='seller'){
+    showPanel('#sellerPanel',true);
+    await Promise.all([loadCategories(),loadSellerListings(),loadSellerPayment(),loadSellerOrders()]);
+  }
+  if(profile.role==='admin'){
+    showPanel('#adminPanel',true);
+    await loadCategories();
+    await loadAdmin();
+  }
+  const nextPath=new URLSearchParams(location.search).get('next');
+  if(nextPath){
+    const nextUrl=new URL(nextPath,location.href);
+    if(nextUrl.origin===location.origin&&['checkout.html','services.html'].includes(nextUrl.pathname.split('/').pop())){
+      location.replace(nextUrl.href);
+    }else{
+      status($('#accountStatus'),'The requested destination could not be opened.','error');
+    }
+  }
+}
+async function refreshSession(){
+  const {data,error}=await supabase.auth.getSession();
+  if(error)throw error;
+  if(data.session)await showAccount(data.session.user);
+  else{
+    currentUser=null;
+    showPanel('#accountPanel',false);
+    showPanel('#buyerPanel',false);
+    showPanel('#sellerPanel',false);
+    showPanel('#adminPanel',false);
+    showPanel('#authPanel',true);
+  }
+}
+async function reviewListing(id,nextStatus){
+  status($('#adminStatus'),'Updating listing…');
+  const {error}=await supabase.from('marketplace_products').update({status:nextStatus}).eq('id',id);
+  if(error){status($('#adminStatus'),`Could not update listing: ${error.message}`,'error');return}
+  status($('#adminStatus'),`Listing ${nextStatus}.`,'success');
+  try{await loadAdmin()}catch(loadError){status($('#adminStatus'),`Listing was updated, but the list could not refresh: ${loadError.message}`,'error')}
+}
+
+if(!configured){
+  showPanel('#authPanel',false);
+  $('#setupNotice').insertAdjacentHTML('beforeend','<p class="status" data-kind="error">Add the Supabase project URL and public anon key to frontend/supabase-config.js after applying the SQL setup.</p>');
+}else{
+  supabase=createClient(config.url,config.anonKey);
+  showPanel('#authPanel',true);
+  setAuthMode(false);
+  $('#toggleAuth').addEventListener('click',()=>setAuthMode(!signingUp));
+  $('#authForm').addEventListener('submit',async event=>{
+    event.preventDefault();
+    const submit=$('#submitAuth');
+    submit.disabled=true;
+    status($('#authStatus'),'Working…');
+    try{
+      const email=$('#email').value.trim();
+      const password=$('#password').value;
+      if(signingUp){
+        const {data,error}=await supabase.auth.signUp({email,password,options:{data:{display_name:$('#displayName').value.trim(),role:$('#accountRole').value}}});
+        if(error)throw error;
+        if(data.session)await showAccount(data.session.user);
+        else status($('#authStatus'),'Account created. Check your email to confirm the account, then sign in.','success');
+      }else{
+        const {data,error}=await supabase.auth.signInWithPassword({email,password});
+        if(error)throw error;
+        await showAccount(data.user);
+      }
+    }catch(error){status($('#authStatus'),error.message||'Sign-in failed. Please try again.','error')}
+    finally{submit.disabled=false}
+  });
+  $('#signOut').addEventListener('click',async()=>{
+    status($('#accountStatus'),'Signing out…');
+    const {error}=await supabase.auth.signOut();
+    if(error){status($('#accountStatus'),error.message,'error');return}
+    await refreshSession();
+  });
+  $('#productForm').addEventListener('submit',async event=>{
+    event.preventDefault();
+    const form=new FormData(event.currentTarget);
+    const imageUrl=String(form.get('image_url')||'').trim();
+    if(imageUrl&&!/^https:\/\//i.test(imageUrl)){status($('#sellerStatus'),'Use a secure https:// image URL.','error');return}
+    const listing={
+      owner_id:currentUser.id,
+      category_id:Number(form.get('category_id')),
+      title:String(form.get('title')).trim(),
+      description:String(form.get('description')).trim(),
+      image_url:imageUrl,
+      price_xaf:Number(form.get('price_xaf')),
+      stock:Number(form.get('stock')),
+      city:String(form.get('city')).trim(),
+      status:'pending'
+    };
+    status($('#sellerStatus'),'Submitting listing…');
+    const {error}=await supabase.from('marketplace_products').insert(listing);
+    if(error){status($('#sellerStatus'),`Could not submit listing: ${error.message}`,'error');return}
+    event.currentTarget.reset();
+    status($('#sellerStatus'),'Listing submitted for administrator review.','success');
+    try{await loadSellerListings()}catch(loadError){status($('#sellerStatus'),`Listing submitted, but your list could not refresh: ${loadError.message}`,'error')}
+  });
+  $('#sellerPaymentForm').addEventListener('submit',async event=>{
+    event.preventDefault();
+    const form=new FormData(event.currentTarget);
+    const paymentDetails={seller_id:currentUser.id};
+    for(const key of ['mtn_number','mtn_account_name','orange_number','orange_account_name','bank_name','bank_account_name','bank_account_number']){
+      paymentDetails[key]=String(form.get(key)||'').trim();
+    }
+    status($('#sellerPaymentStatus'),'Saving your payout details…');
+    const {error}=await supabase.from('marketplace_seller_payment_methods').upsert(paymentDetails,{onConflict:'seller_id'});
+    if(error){status($('#sellerPaymentStatus'),`Could not save your payment details: ${error.message}`,'error');return}
+    status($('#sellerPaymentStatus'),'Seller payment details saved. Buyers can select the methods you configured at checkout.','success');
+  });
+  $('#trackingUpdateForm').addEventListener('submit',async event=>{
+    event.preventDefault();
+    const form=new FormData(event.currentTarget);
+    const selectedOrder=$('#sellerOrderSelect').selectedOptions[0];
+    const latitude=String(form.get('latitude')||'').trim();
+    const longitude=String(form.get('longitude')||'').trim();
+    if(Boolean(latitude)!==Boolean(longitude)){status($('#trackingUpdateStatus'),'Enter both latitude and longitude, or leave both blank.','error');return}
+    const record={
+      order_id:String(form.get('order_id')),
+      seller_id:currentUser.id,
+      status_label:String(form.get('status_label')),
+      location_label:String(form.get('location_label')||'').trim(),
+      note:String(form.get('note')||'').trim(),
+      latitude:latitude?Number(latitude):null,
+      longitude:longitude?Number(longitude):null
+    };
+    if(!record.order_id){status($('#trackingUpdateStatus'),'Select an order first.','error');return}
+    status($('#trackingUpdateStatus'),'Posting shipment update…');
+    const {error:insertError}=await supabase.from('marketplace_tracking_updates').insert(record);
+    if(insertError){status($('#trackingUpdateStatus'),`Could not post tracking update: ${insertError.message}`,'error');return}
+    const nextOrderStatus=record.status_label==='delivered'?'delivered':record.status_label==='processing'?'processing':'shipped';
+    const {error:updateError}=await supabase.from('marketplace_orders').update({order_status:nextOrderStatus}).eq('id',record.order_id).eq('seller_id',currentUser.id);
+    if(updateError){status($('#trackingUpdateStatus'),`Shipment update was saved, but order status could not be changed: ${updateError.message}`,'error');return}
+    const trackingCode=selectedOrder?.textContent.split(' · ')[0]||'';
+    event.currentTarget.reset();
+    status($('#trackingUpdateStatus'),`Shipment update posted. Tracking code: ${trackingCode}`,'success');
+    try{await loadSellerOrders()}catch(loadError){status($('#trackingUpdateStatus'),`Update posted, but order list could not refresh: ${loadError.message}`,'error')}
+  });
+  $('#shareGps').addEventListener('click',()=>{
+    if(!navigator.geolocation){status($('#trackingUpdateStatus'),'GPS is not available in this browser.','error');return}
+    status($('#trackingUpdateStatus'),'Requesting your location. It is shared only after you submit a shipment update.');
+    navigator.geolocation.getCurrentPosition(position=>{
+      $('#sellerLatitude').value=position.coords.latitude.toFixed(6);
+      $('#sellerLongitude').value=position.coords.longitude.toFixed(6);
+      status($('#trackingUpdateStatus'),'GPS point added to the form. It will be shared only when you post the update.','success');
+    },error=>status($('#trackingUpdateStatus'),`Could not get GPS location: ${error.message}`,'error'),{enableHighAccuracy:true,timeout:15000,maximumAge:0});
+  });
+  refreshSession().catch(error=>{showPanel('#authPanel',true);status($('#authStatus'),error.message,'error')});
+  supabase.auth.onAuthStateChange((_event,session)=>{setTimeout(()=>{if(session)showAccount(session.user).catch(error=>status($('#authStatus'),error.message,'error'))},0)});
+}
+</script>
+</body>
+</html>

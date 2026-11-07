@@ -1,0 +1,244 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#c5ef3d">
+<title>Oracle (Cyrech Marketplace) | Products in Cameroon</title>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#fff;--card:#fff;--ink:#111;--mute:#5b5e56;--line:#e4e6df;--teal:#557500;--gold:#c5ef3d;color-scheme:light}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:'Bricolage Grotesque',system-ui,sans-serif;line-height:1.5}
+a{color:inherit}
+button,input,select{font:inherit}
+a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid #ff9900;outline-offset:2px}
+.topbar{background:#111;color:#fff;padding:.8rem max(1rem,calc((100vw - 1440px)/2));display:flex;align-items:center;gap:1rem}
+.logo{color:#fff;text-decoration:none;font-size:1.5rem;font-weight:800;letter-spacing:-.04em;white-space:nowrap}
+.logo span{color:var(--gold)}
+.language-switch{height:40px;padding:.4rem;border:1px solid #555;border-radius:5px;background:#111;color:#fff}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.site-search{display:flex;flex:1;max-width:620px;min-width:120px}
+.site-search input{flex:1;min-width:0;height:42px;padding:.5rem .7rem;border:0;border-radius:5px 0 0 5px;background:#fff;color:#17212b}
+.site-search button,.account-link{height:42px;padding:.5rem .85rem;border:0;border-radius:0 5px 5px 0;background:var(--gold);color:#111;font-weight:700;cursor:pointer;text-decoration:none;white-space:nowrap}
+.account-link{margin-left:auto;border-radius:5px}
+.browsebar{display:flex;gap:.3rem;overflow:auto;white-space:nowrap;background:#111;color:#fff;padding:.55rem max(1rem,calc((100vw - 1440px)/2))}
+.browsebar a{padding:.25rem .55rem;border:1px solid transparent;border-radius:3px;text-decoration:none;font-size:.88rem}
+.browsebar a:hover,.browsebar a[aria-current=page]{border-color:#fff}
+main{max-width:1440px;margin:0 auto;padding:1rem}
+.notice{margin:0 0 1rem;padding:.75rem 1rem;border-radius:6px;background:#f5f9e9;color:#303d14;font-size:.86rem}
+.hero{display:flex;align-items:center;min-height:180px;margin-bottom:1rem;padding:clamp(1.3rem,4vw,2.4rem);border-radius:10px;background:linear-gradient(110deg,#111 45%,#425b00);color:#fff}
+.hero h1{margin:0 0 .4rem;font-size:clamp(2rem,4vw,3rem);line-height:1.05;letter-spacing:-.04em}
+.hero p{max-width:64ch;margin:0;color:#e3f0ed}
+.tools{display:flex;align-items:center;justify-content:space-between;gap:.8rem;flex-wrap:wrap;margin:0 0 1rem;padding:1rem;background:var(--card);border:1px solid var(--line);border-radius:8px}
+.tools h2{margin:0;font-size:1.15rem}
+.tools-controls{display:flex;gap:.55rem;flex-wrap:wrap}
+.tools input,.tools select{min-width:190px;padding:.58rem .7rem;border:1px solid #b8c0c4;border-radius:5px;background:#fff;color:#17212b}
+.tools select{min-width:180px}
+.state{padding:1rem;background:#fff;border:1px solid var(--line);border-radius:7px;color:var(--mute)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:1rem}
+.product{min-width:0;overflow:hidden;background:var(--card);border:1px solid var(--line);border-radius:8px;box-shadow:0 2px 6px #17212b0d;display:flex;flex-direction:column}
+.product img{display:block;width:100%;aspect-ratio:4/3;object-fit:cover;background:#d9e3e3}
+.product-copy{display:flex;flex-direction:column;align-items:flex-start;gap:.3rem;padding:.8rem;height:100%}
+.category{color:var(--teal);font-size:.72rem;font-weight:800;text-transform:uppercase;letter-spacing:.07em}
+.product h3{margin:0;font-size:1rem;line-height:1.3}
+.product p{margin:0;color:var(--mute);font-size:.8rem}
+.price{margin-top:auto;padding-top:.45rem;font-size:1.05rem;font-weight:800}
+.stock{color:#48635e;font-size:.75rem}
+.details{margin-top:.35rem;padding:.48rem .7rem;border:0;border-radius:5px;background:var(--gold);color:#111;font-weight:700;cursor:pointer}
+dialog{width:min(520px,92vw);border:1px solid var(--line);border-radius:10px;background:#fff;color:var(--ink);padding:1.25rem}
+dialog::backdrop{background:#0008}
+dialog img{width:100%;max-height:300px;object-fit:cover;border-radius:6px}
+dialog h2{margin:.65rem 0 .2rem}
+dialog p{color:var(--mute)}
+.dialog-actions{display:flex;gap:.7rem;flex-wrap:wrap;align-items:center}
+.dialog-actions a,.dialog-actions button{padding:.55rem .75rem;border:0;border-radius:5px;background:var(--gold);color:var(--ink);font-weight:700;text-decoration:none;cursor:pointer}
+.footer{margin-top:1.5rem;background:#111;color:#eee;text-align:center;padding:1.2rem 1rem;font-size:.84rem}
+.footer a{color:var(--gold);text-decoration:none}
+@media(max-width:700px){.topbar{flex-wrap:wrap;gap:.55rem}.site-search{order:3;flex:1 1 100%;max-width:none}.account-link{margin-left:auto}.tools{align-items:stretch}.tools-controls{display:grid;grid-template-columns:1fr;width:100%}.tools input,.tools select{width:100%}.grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:.65rem}.product-copy{padding:.65rem}.product h3{font-size:.9rem}}
+@media(max-width:380px){.grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header class="topbar">
+  <a class="logo" href="index.html" aria-label="Oracle Cyrech Marketplace home">Oracle<span> (Cyrech Marketplace)</span></a>
+  <form class="site-search" id="searchForm" action="services.html#catalog" method="get" role="search" aria-label="Search products">
+    <input id="search" name="search" type="search" placeholder="Search products in Cameroon" aria-label="Search products in Cameroon">
+    <button type="submit" data-i18n="search">Search</button>
+  </form>
+  <a class="account-link" href="admin.html" data-i18n="nav-sign-in">Sign in / Join</a>
+  <label class="sr-only" for="languageSwitch" data-i18n="language-label">Language</label><select class="language-switch" id="languageSwitch" aria-label="Language"><option value="en">English</option><option value="fr">Français</option></select>
+</header>
+<nav class="browsebar" aria-label="Main navigation">
+  <a href="services.html" aria-current="page" data-i18n="nav-products">All products</a>
+  <a href="#catalog">Shop products</a>
+  <a href="admin.html">Sell on Oracle</a>
+  <a href="track.html" data-i18n="nav-track">Track order</a>
+  <a href="contact.html" data-i18n="nav-contact">Contact</a>
+  <a href="about.html" data-i18n="nav-about">About &amp; policies</a>
+  <a href="index.html" data-i18n="nav-home">Home</a>
+</nav>
+<main>
+  <p class="notice" id="catalogNotice" role="status" data-i18n="catalog-preview">Sample listings for preview. Actual availability, seller details, and prices should be confirmed before purchase.</p>
+  <section class="hero">
+    <div>
+      <h1 data-i18n="catalog-title">Shop Cameroon, all in one place.</h1>
+      <p data-i18n="catalog-copy">Browse phones, fashion, food and farm produce, home essentials, beauty, tools, school supplies, and more. Prices are displayed in CFA francs (XAF).</p>
+    </div>
+  </section>
+  <section class="tools" id="catalog" aria-label="Product search and filters">
+    <h2 data-i18n="catalog-search-title">Explore products</h2>
+    <div class="tools-controls">
+      <input id="catalogSearch" type="search" placeholder="Search the catalog" aria-label="Search product catalog" data-i18n-placeholder="catalog-search-placeholder">
+      <select id="categoryFilter" aria-label="Filter by category" data-i18n-aria="catalog-all-categories"><option value="">All categories</option></select>
+      <select id="sortProducts" aria-label="Sort products">
+        <option value="featured" data-i18n="catalog-featured">Featured</option>
+        <option value="price-low" data-i18n="catalog-price-low">Price: low to high</option>
+        <option value="price-high" data-i18n="catalog-price-high">Price: high to low</option>
+        <option value="name" data-i18n="catalog-name">Name: A to Z</option>
+      </select>
+    </div>
+  </section>
+  <div id="catalogState" class="state" hidden></div>
+  <section class="grid" id="productGrid" aria-label="Products"></section>
+</main>
+<dialog id="productDialog" aria-labelledby="dialogTitle">
+  <img id="dialogImage" alt="">
+  <span id="dialogCategory" class="category"></span>
+  <h2 id="dialogTitle"></h2>
+  <strong id="dialogPrice" class="price"></strong>
+  <p id="dialogDescription"></p>
+  <p id="previewCheckoutNote" class="state" hidden>This is a preview listing. Checkout is available when the seller publishes a live listing in the connected Supabase catalog.</p>
+  <div class="dialog-actions">
+    <a href="contact.html">Ask Oracle</a>
+    <a id="buyProductLink" href="checkout.html" data-i18n="buy-now">Buy now</a>
+    <button type="button" id="closeDialog">Close</button>
+  </div>
+</dialog>
+<footer class="footer">© 2026 Oracle (Cyrech Marketplace) · <a href="index.html" data-i18n="nav-home">Home</a> · <a href="admin.html">Client account / Admin</a> · <a href="track.html" data-i18n="nav-track">Track order</a> · <a href="mailto:kamegnesandra@gmail.com">kamegnesandra@gmail.com</a></footer>
+<script src="supabase-config.js"></script>
+<script src="language.js"></script>
+<script type="module">
+import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
+
+const sampleProducts = [
+  {id:'sample-1',title:'Android smartphone, 128 GB',category_name:'Phones & Electronics',price_xaf:85000,stock:8,description:'Sample listing for an unlocked Android smartphone with 128 GB storage. Confirm exact model, condition, warranty, and network compatibility with the seller.',image_url:'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=800&q=80'},
+  {id:'sample-2',title:'Laptop for work and study',category_name:'Phones & Electronics',price_xaf:325000,stock:4,description:'Sample listing for a laptop. Ask the seller to confirm specifications, battery condition, included accessories, and warranty.',image_url:'https://images.unsplash.com/photo-1496181133206-80ce9b88a853?auto=format&fit=crop&w=800&q=80'},
+  {id:'sample-3',title:'Wireless earbuds',category_name:'Phones & Electronics',price_xaf:18000,stock:12,description:'Sample listing for wireless audio earbuds. Confirm compatibility and included charging case with the seller.',image_url:'https://images.unsplash.com/photo-1606220945770-b5b6c2c55bf1?auto=format&fit=crop&w=800&q=80'},
+  {id:'sample-4',title:'Cotton shirt, assorted sizes',category_name:'Fashion & Textiles',price_xaf:12000,stock:20,description:'Sample clothing listing. Contact the seller to confirm available sizes, fabric, and colors before ordering.',image_url:'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=800&q=80'},
+  {id:'sample-5',title:'Wax-print fabric, 6 yards',category_name:'Fashion & Textiles',price_xaf:22000,stock:15,description:'Sample fabric listing. Patterns and colors may vary; request a current photo from the seller before purchase.',image_url:'https://images.unsplash.com/photo-1605000797499-95a51c5269ae?auto=format&fit=crop&w=800&q=80'},
+  {id:'sample-6',title:'Leather sandals',category_name:'Fashion & Textiles',price_xaf:16000,stock:9,description:'Sample footwear listing. Confirm available sizes and materials with the seller.',image_url:'https://images.unsplash.com/photo-1543163521-1bf539c55dd2?auto=format&fit=crop&w=800&q=80'},
+  {id:'sample-7',title:'Plantains, market bunch',category_name:'Food & Farm Produce',price_xaf:5000,stock:30,description:'Sample fresh produce listing. Harvest, quantity, and delivery arrangements can vary; confirm details with the seller.',image_url:'https://images.unsplash.com/photo-1528825871115-3581a5387919?auto=format&fit=crop&w=800&q=80'},
+  {id:'sample-8',title:'Roasted coffee beans, 250 g',category_name:'Food & Farm Produce',price_xaf:4500,stock:24,description:'Sample coffee listing. Check roast date, origin, packaging, and storage instructions on the seller listing.',image_url:'https://images.unsplash.com/photo-1559525839-b184a4d698c7?auto=format&fit=crop&w=800&q=80'},
+  {id:'sample-9',title:'Dried beans, 1 kg',category_name:'Food & Farm Produce',price_xaf:1800,stock:40,description:'Sample dry-food listing. Confirm quantity, packaging, and collection or delivery details with the seller.',image_url:'https://images.unsplash.com/photo-1515543904379-3d757e2e8e74?auto=format&fit=crop&w=800&q=80'},
+  {id:'sample-10',title:'Aluminium cooking pot',category_name:'Home & Kitchen',price_xaf:14500,stock:10,description:'Sample kitchenware listing. Ask the seller to confirm dimensions, material, and stove compatibility.',image_url:'https://images.unsplash.com/photo-1584990347449-a8f7b7f4e3a8?auto=format&fit=crop&w=800&q=80'},
+  {id:'sample-11',title:'Woven storage basket',category_name:'Home & Kitchen',price_xaf:9500,stock:7,description:'Sample home goods listing. Dimensions and finish may vary; check with the seller before ordering.',image_url:'https://images.unsplash.com/photo-1593085260707-5377ba37f868?auto=format&fit=crop&w=800&q=80'},
+  {id:'sample-12',title:'Rechargeable LED lamp',category_name:'Home & Kitchen',price_xaf:12500,stock:11,description:'Sample lighting listing. Confirm battery, charging method, and operating time with the seller.',image_url:'https://images.unsplash.com/photo-1507473885765-e6ed057f782c?auto=format&fit=crop&w=800&q=80'},
+  {id:'sample-13',title:'Shea butter, 250 g',category_name:'Beauty & Personal Care',price_xaf:3500,stock:18,description:'Sample personal care listing. Check ingredients and any allergy information with the seller before use.',image_url:'https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?auto=format&fit=crop&w=800&q=80'},
+  {id:'sample-14',title:'Hair care and styling set',category_name:'Beauty & Personal Care',price_xaf:14000,stock:6,description:'Sample hair care listing. Review ingredients, product sizes, and suitability with the seller.',image_url:'https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?auto=format&fit=crop&w=800&q=80'},
+  {id:'sample-15',title:'Basic first-aid kit',category_name:'Health & Wellness',price_xaf:8500,stock:8,description:'Sample general wellness product. Check contents, expiry dates, and relevant professional guidance before use.',image_url:'https://images.unsplash.com/photo-1603398938378-e54eab446dde?auto=format&fit=crop&w=800&q=80'},
+  {id:'sample-16',title:'Motorcycle helmet',category_name:'Auto & Motorcycle',price_xaf:28000,stock:5,description:'Sample motorcycle accessory listing. Confirm fit, condition, and applicable safety certification with the seller.',image_url:'https://images.unsplash.com/photo-1558981806-ec527fa84c39?auto=format&fit=crop&w=800&q=80'},
+  {id:'sample-17',title:'Football, size 5',category_name:'Sports & Outdoors',price_xaf:12500,stock:13,description:'Sample sports equipment listing. Confirm size, material, and intended use with the seller.',image_url:'https://images.unsplash.com/photo-1614632537423-1e6c2e7e0b0a?auto=format&fit=crop&w=800&q=80'},
+  {id:'sample-18',title:'School backpack',category_name:'Books & School Supplies',price_xaf:18000,stock:16,description:'Sample school supplies listing. Ask about size, compartments, and available colors.',image_url:'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=800&q=80'},
+  {id:'sample-19',title:'Handmade ceramic serving bowl',category_name:'Arts & Crafts',price_xaf:11000,stock:3,description:'Sample craft listing. Each item may have individual details; confirm dimensions and care instructions with the maker.',image_url:'https://images.unsplash.com/photo-1578749556568-bc2c40e68b61?auto=format&fit=crop&w=800&q=80'},
+  {id:'sample-20',title:'Hand tool set',category_name:'Building & Hardware',price_xaf:24500,stock:5,description:'Sample hardware listing. Confirm tool contents, sizes, and condition before purchase.',image_url:'https://images.unsplash.com/photo-1581147036324-c1c89c2c8a9b?auto=format&fit=crop&w=800&q=80'},
+  {id:'sample-21',title:'Baby clothing bundle',category_name:'Baby & Kids',price_xaf:15000,stock:8,description:'Sample children’s clothing listing. Confirm sizes, fabric, and bundle contents with the seller.',image_url:'https://images.unsplash.com/photo-1519238263530-99bdd11df2ea?auto=format&fit=crop&w=800&q=80'},
+  {id:'sample-22',title:'Fresh tomatoes, market basket',category_name:'Food & Farm Produce',price_xaf:3000,stock:20,description:'Sample fresh produce listing. Quantity and freshness depend on availability; confirm with the seller.',image_url:'https://images.unsplash.com/photo-1546094096-0df4bcaaa337?auto=format&fit=crop&w=800&q=80'},
+  {id:'sample-23',title:'Reusable water bottle',category_name:'Home & Kitchen',price_xaf:6500,stock:12,description:'Sample everyday essentials listing. Check capacity and material details with the seller.',image_url:'https://images.unsplash.com/photo-1602143407151-7111542de6e8?auto=format&fit=crop&w=800&q=80'},
+  {id:'sample-24',title:'Children’s picture book',category_name:'Books & School Supplies',price_xaf:6000,stock:9,description:'Sample books and learning listing. Confirm language, edition, and condition with the seller.',image_url:'https://images.unsplash.com/photo-1512820790803-83ca734da794?auto=format&fit=crop&w=800&q=80'}
+];
+
+const config = window.MARKETPLACE_SUPABASE_CONFIG;
+const configured = config?.url && config?.anonKey;
+const money = amount => new Intl.NumberFormat('fr-CM',{style:'currency',currency:'XAF',maximumFractionDigits:0}).format(Number(amount));
+const escapeHtml = value => String(value ?? '').replace(/[&<>"']/g,char=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
+const fallbackImage = 'https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=800&q=80';
+const safeImageUrl = value => /^https:\/\//i.test(String(value||'')) ? String(value) : fallbackImage;
+let products = sampleProducts;
+let categories = [...new Set(sampleProducts.map(product=>product.category_name))];
+let supabase;
+const grid = document.querySelector('#productGrid');
+const state = document.querySelector('#catalogState');
+const notice = document.querySelector('#catalogNotice');
+const categoryFilter = document.querySelector('#categoryFilter');
+
+function renderCategories(){
+  const selected=categoryFilter.value;
+  categoryFilter.innerHTML='<option value="">All categories</option>'+categories.map(category=>`<option value="${escapeHtml(category)}">${escapeHtml(category)}</option>`).join('');
+  categoryFilter.value=categories.includes(selected)?selected:'';
+}
+function filteredProducts(){
+  const query=document.querySelector('#catalogSearch').value.trim().toLocaleLowerCase();
+  const category=categoryFilter.value;
+  const sort=document.querySelector('#sortProducts').value;
+  const result=products.filter(product=>(!category||product.category_name===category)&&(!query||`${product.title} ${product.description} ${product.category_name}`.toLocaleLowerCase().includes(query)));
+  if(sort==='price-low')result.sort((a,b)=>a.price_xaf-b.price_xaf);
+  if(sort==='price-high')result.sort((a,b)=>b.price_xaf-a.price_xaf);
+  if(sort==='name')result.sort((a,b)=>a.title.localeCompare(b.title));
+  return result;
+}
+function showProduct(id){
+  const product=products.find(item=>item.id===id);
+  if(!product)return;
+  document.querySelector('#dialogImage').src=safeImageUrl(product.image_url);
+  document.querySelector('#dialogImage').alt=product.title;
+  document.querySelector('#dialogCategory').textContent=product.category_name;
+  document.querySelector('#dialogTitle').textContent=product.title;
+  document.querySelector('#dialogPrice').textContent=money(product.price_xaf);
+  document.querySelector('#dialogDescription').textContent=product.description||'Contact the seller for product details.';
+  document.querySelector('#buyProductLink').href=`checkout.html?product=${encodeURIComponent(product.id)}`;
+  document.querySelector('#previewCheckoutNote').hidden=!String(product.id).startsWith('sample-');
+  document.querySelector('#productDialog').showModal();
+}
+function render(){
+  const matches=filteredProducts();
+  grid.innerHTML=matches.map(product=>`<article class="product">
+    <img loading="lazy" src="${escapeHtml(safeImageUrl(product.image_url))}" alt="${escapeHtml(product.title)}">
+    <div class="product-copy"><span class="category">${escapeHtml(product.category_name)}</span>
+    <h3>${escapeHtml(product.title)}</h3><p>${escapeHtml(product.city||'Cameroon')} · ${Number(product.stock)>0?'Available to enquire':'Check availability'}</p>
+    <span class="price">${money(product.price_xaf)}</span>
+    <button class="details" type="button" data-product-id="${escapeHtml(product.id)}">View details</button></div></article>`).join('');
+  state.hidden=matches.length>0;
+  state.textContent='No products match your search. Try another word or category.';
+  grid.querySelectorAll('.product img').forEach(image=>image.addEventListener('error',()=>{
+    if(image.src!==fallbackImage)image.src=fallbackImage;
+  },{once:true}));
+  grid.querySelectorAll('.details').forEach(button=>button.addEventListener('click',()=>showProduct(button.dataset.productId)));
+}
+async function loadSupabaseProducts(){
+  supabase=createClient(config.url,config.anonKey);
+  const [categoryResult,productResult]=await Promise.all([
+    supabase.from('marketplace_categories').select('name').order('name'),
+    supabase.from('marketplace_products').select('id,title,description,image_url,price_xaf,stock,city,category:marketplace_categories(name)').eq('status','active').eq('is_sample',false).order('created_at',{ascending:false})
+  ]);
+  if(categoryResult.error)throw categoryResult.error;
+  if(productResult.error)throw productResult.error;
+  categories=categoryResult.data.map(item=>item.name);
+  products=productResult.data.length?productResult.data.map(item=>({...item,category_name:item.category?.name||'Other'})):sampleProducts;
+  renderCategories();
+  notice.dataset.i18n=productResult.data.length?'catalog-live-note':'catalog-preview';
+  notice.textContent=productResult.data.length
+    ?'Listings shown are provided by Marketplace sellers. Confirm availability, condition, delivery, and final terms with the seller.'
+    :'No seller listings are published yet. Showing illustrative preview products until sellers publish live listings.';
+  window.applyMarketplaceLanguage?.(localStorage.getItem('oracle-language')||'en');
+  notice.classList.remove('notice');
+  notice.classList.add('state');
+}
+document.querySelector('#searchForm').addEventListener('submit',event=>{event.preventDefault();document.querySelector('#catalogSearch').value=document.querySelector('#search').value;render();document.querySelector('#catalog').scrollIntoView({behavior:'smooth'});});
+document.querySelector('#catalogSearch').addEventListener('input',render);
+categoryFilter.addEventListener('change',render);
+document.querySelector('#sortProducts').addEventListener('change',render);
+document.querySelector('#closeDialog').addEventListener('click',()=>document.querySelector('#productDialog').close());
+const initialSearch=new URLSearchParams(location.search).get('search')||'';
+document.querySelector('#search').value=initialSearch;
+document.querySelector('#catalogSearch').value=initialSearch;
+renderCategories();
+render();
+if(configured){
+  loadSupabaseProducts().then(render).catch(error=>{state.hidden=false;state.textContent=`Could not load live listings from Supabase: ${error.message}`;notice.textContent='Showing preview listings while the live catalog is unavailable.';});
+}else{
+  notice.textContent='Preview catalog: these are illustrative listings, not confirmed offers. Add your Supabase URL and public anon key in supabase-config.js to load real seller listings.';
+}
+</script>
+</body>
+</html>

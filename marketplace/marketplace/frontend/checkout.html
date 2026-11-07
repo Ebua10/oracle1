@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#c5ef3d">
+<title>Checkout | Oracle (Cyrech Marketplace)</title>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#fff;--card:#fff;--ink:#111;--mute:#5b5e56;--line:#e4e6df;--lemon:#c5ef3d;--soft:#f5f9e9;--black:#111}
+*{box-sizing:border-box}
+body{margin:0;background:#fff;color:var(--ink);font-family:'Bricolage Grotesque',system-ui,sans-serif;line-height:1.55}
+a{color:inherit}
+input,select,textarea,button{font:inherit}
+a:focus-visible,input:focus-visible,select:focus-visible,button:focus-visible{outline:3px solid #8bb800;outline-offset:2px}
+.topbar{background:#111;color:#fff;padding:.8rem max(1rem,calc((100vw - 1100px)/2));display:flex;align-items:center;justify-content:space-between;gap:1rem}
+.brand{color:#fff;text-decoration:none;font-weight:800;font-size:1.25rem}
+.brand span{color:var(--lemon)}
+.top-links{display:flex;gap:1rem;align-items:center;flex-wrap:wrap}
+.top-links a{color:#fff;text-decoration:none}
+.language-switch{padding:.4rem;border:1px solid #555;border-radius:5px;background:#111;color:#fff}
+main{max-width:1000px;margin:0 auto;padding:2rem 1rem 3rem}
+h1{font-size:clamp(2rem,4vw,3rem);line-height:1.05;letter-spacing:-.04em;margin:.2rem 0 .4rem}
+.intro{margin-bottom:1.2rem;color:var(--mute)}
+.layout{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(280px,.9fr);gap:1rem;align-items:start}
+.panel{padding:1.2rem;background:var(--card);border:1px solid var(--line);border-radius:10px;box-shadow:0 6px 20px #11110a}
+.panel h2{margin:0 0 .7rem;font-size:1.2rem}
+.summary-image{width:100%;aspect-ratio:16/10;object-fit:cover;border-radius:7px;background:var(--soft)}
+.category{margin:.65rem 0 0;color:#557500;text-transform:uppercase;letter-spacing:.08em;font-size:.73rem;font-weight:800}
+.product-name{margin:.2rem 0;font-size:1.15rem}
+.product-description{color:var(--mute);font-size:.9rem}
+.total{margin:.8rem 0 0;padding-top:.7rem;border-top:1px solid var(--line);font-size:1.25rem;font-weight:800}
+.form{display:grid;gap:.7rem}
+.form label{display:grid;gap:.22rem;font-size:.84rem;font-weight:600}
+.form input,.form select,.form textarea{width:100%;padding:.65rem .7rem;border:1px solid #b8c0c4;border-radius:5px;background:#fff;color:#111}
+.form textarea{min-height:84px;resize:vertical}
+.payment-help{padding:.75rem;border-radius:6px;background:var(--soft);font-size:.83rem}
+.button{display:inline-flex;justify-content:center;align-items:center;padding:.68rem .95rem;border:0;border-radius:6px;background:var(--lemon);color:#111;font-weight:800;text-decoration:none;cursor:pointer}
+.button:disabled{opacity:.55;cursor:wait}
+.status{min-height:1.4rem;margin:0;color:var(--mute);font-size:.85rem}
+.status[data-kind=error]{color:#a32222}
+.sign-in-link{color:#405a00;font-weight:700}
+.footer{background:#111;color:#eee;text-align:center;padding:1.1rem;font-size:.84rem}
+.footer a{color:var(--lemon);text-decoration:none}
+@media(max-width:720px){.layout{grid-template-columns:1fr}.topbar{align-items:flex-start;flex-direction:column}}
+</style>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="services.html">Oracle <span>(Cyrech Marketplace)</span></a>
+  <nav class="top-links" aria-label="Main navigation"><a href="services.html" data-i18n="nav-products">Products</a><a href="track.html" data-i18n="nav-track">Track order</a><a href="admin.html" data-i18n="nav-account">My account</a><label for="languageSwitch" data-i18n="language-label">Language</label><select class="language-switch" id="languageSwitch"><option value="en">English</option><option value="fr">Français</option></select></nav>
+</header>
+<main>
+  <h1 data-i18n="checkout-title">Checkout</h1>
+  <p class="intro" data-i18n="checkout-intro">Pay the seller directly using the payment instructions they provided. Your contact details are for delivery and order updates only.</p>
+  <div class="layout">
+    <section class="panel" aria-labelledby="productHeading">
+      <img class="summary-image" id="productImage" alt="">
+      <p class="category" id="productCategory"></p>
+      <h2 class="product-name" id="productHeading">Loading product…</h2>
+      <p class="product-description" id="productDescription"></p>
+      <p class="total" id="productPrice"></p>
+      <label for="quantity">Quantity</label>
+      <input id="quantity" type="number" min="1" value="1" step="1">
+      <p class="total" id="orderTotal"></p>
+    </section>
+    <section class="panel">
+      <h2>Your delivery details</h2>
+      <form class="form" id="checkoutForm">
+        <label data-i18n="buyer-name">Full name<input name="buyer_name" id="buyerName" autocomplete="name" maxlength="100" required></label>
+        <label data-i18n="buyer-email">Email for order updates<input name="buyer_email" id="buyerEmail" type="email" autocomplete="email" readonly required></label>
+        <label data-i18n="buyer-phone">Phone<input name="buyer_phone" autocomplete="tel" maxlength="32" required></label>
+        <label data-i18n="buyer-address">Delivery address and city<textarea name="delivery_address" autocomplete="street-address" maxlength="500" required></textarea></label>
+        <label data-i18n="payment-method">Payment method
+          <select name="payment_method" id="paymentMethod" required>
+            <option value="mtn_momo" data-i18n="mtn-payment">MTN Mobile Money</option>
+            <option value="orange_money" data-i18n="orange-payment">Orange Money</option>
+            <option value="bank_transfer" data-i18n="bank-payment">Bank transfer</option>
+          </select>
+        </label>
+        <div class="payment-help" data-i18n="payment-note">The seller—not the buyer—provides their payout details. We show them after you place the order. The order stays payment-pending until the seller confirms receipt. Verify the payee details and payment independently before sending money.</div>
+        <button class="button" type="submit" id="placeOrder" data-i18n="place-order">Place order</button>
+        <a class="sign-in-link" id="checkoutSignIn" href="admin.html" hidden>Sign in to your buyer account</a>
+          <p class="status" id="checkoutStatus" role="status" aria-live="polite"></p>
+      </form>
+    </section>
+  </div>
+</main>
+<footer class="footer">Oracle (Cyrech Marketplace) · <a href="mailto:kamegnesandra@gmail.com">kamegnesandra@gmail.com</a></footer>
+<script src="supabase-config.js"></script>
+<script src="language.js"></script>
+<script type="module">
+import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
+const config=window.MARKETPLACE_SUPABASE_CONFIG;
+const $=selector=>document.querySelector(selector);
+const money=value=>new Intl.NumberFormat('fr-CM',{style:'currency',currency:'XAF',maximumFractionDigits:0}).format(Number(value));
+const status=(message,kind='')=>{const el=$('#checkoutStatus');el.textContent=message;el.dataset.kind=kind};
+const safeImage=value=>/^https:\/\//i.test(String(value||''))?value:'';
+let supabase;
+let session;
+let product;
+let orderCreated=false;
+const productId=new URLSearchParams(location.search).get('product');
+function updateTotal(){if(product)$('#orderTotal').textContent=`Total: ${money(Number(product.price_xaf)*Number($('#quantity').value||0))}`}
+async function initialize(){
+  if(!config?.url||!config?.anonKey){status('Supabase is not configured. Add the project URL and public anon key to supabase-config.js.','error');$('#placeOrder').disabled=true;return}
+  if(!productId){status('No product was selected. Return to the product catalog.','error');$('#placeOrder').disabled=true;return}
+  supabase=createClient(config.url,config.anonKey);
+  const {data:sessionData,error:sessionError}=await supabase.auth.getSession();
+  if(sessionError)throw sessionError;
+  session=sessionData.session;
+  if(!session){
+    status('Sign in to your buyer account before checkout.');
+    $('#placeOrder').disabled=true;
+    const next=new URL('checkout.html',location.href);
+    next.searchParams.set('product',productId);
+    const signIn=new URL('admin.html',location.href);
+    signIn.searchParams.set('next',`${next.pathname.split('/').pop()}?${next.searchParams.toString()}`);
+    $('#checkoutSignIn').href=signIn.href;
+    $('#checkoutSignIn').hidden=false;
+    return;
+  }
+  const {data:profile,error:profileError}=await supabase.from('marketplace_profiles').select('role,display_name').eq('id',session.user.id).single();
+  if(profileError)throw profileError;
+  if(profile.role!=='buyer'){status('Checkout is available to buyer accounts. Sign in with a buyer account.','error');$('#placeOrder').disabled=true;return}
+  const {data,error}=await supabase.from('marketplace_products').select('id,title,description,image_url,price_xaf,stock,city,category:marketplace_categories(name)').eq('id',productId).eq('status','active').eq('is_sample',false).single();
+  if(error)throw new Error('This listing is not available for checkout. It may be a preview item or is no longer active.');
+  product={...data,category_name:data.category?.name||'Product'};
+  if(Number(product.stock)<1)throw new Error('This product is out of stock.');
+  $('#productImage').src=safeImage(product.image_url);
+  $('#productImage').alt=product.title;
+  $('#productCategory').textContent=product.category_name;
+  $('#productHeading').textContent=product.title;
+  $('#productDescription').textContent=product.description||`Seller location: ${product.city||'Cameroon'}`;
+  $('#productPrice').textContent=`Price: ${money(product.price_xaf)} each`;
+  $('#quantity').max=String(product.stock);
+  $('#buyerEmail').value=session.user.email||'';
+  $('#buyerName').value=profile.display_name||'';
+  updateTotal();
+}
+$('#quantity').addEventListener('input',updateTotal);
+$('#checkoutForm').addEventListener('submit',async event=>{
+  event.preventDefault();
+  if(orderCreated||!product||!session)return;
+  const quantity=Number($('#quantity').value);
+  if(!Number.isInteger(quantity)||quantity<1||quantity>product.stock){status('Choose a quantity available in stock.','error');return}
+  const fields=new FormData(event.currentTarget);
+  const submit=$('#placeOrder');submit.disabled=true;status('Placing your order…');
+  try{
+    const {data,error}=await supabase.rpc('create_marketplace_order',{
+      p_product_id:product.id,
+      p_quantity:quantity,
+      p_buyer_name:String(fields.get('buyer_name')).trim(),
+      p_buyer_email:session.user.email,
+      p_buyer_phone:String(fields.get('buyer_phone')).trim(),
+      p_delivery_address:String(fields.get('delivery_address')).trim(),
+      p_payment_method:String(fields.get('payment_method'))
+    });
+    if(error)throw error;
+    orderCreated=true;
+    let emailSent=false;
+    const {error:notifyError}=await supabase.functions.invoke('order-notification',{body:{order_id:data.id,event:'order_placed'}});
+    if(!notifyError)emailSent=true;
+    const next=new URL('payment-received.html',location.href);
+    next.searchParams.set('code',data.tracking_code);
+    next.searchParams.set('email',emailSent?'sent':'failed');
+    location.assign(next);
+  }catch(error){status(error.message||'Could not place order. Please try again.','error');submit.disabled=false}
+});
+initialize().catch(error=>{status(error.message||'Could not load checkout.','error');$('#placeOrder').disabled=true});
+</script>
+</body>
+</html>

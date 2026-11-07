@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#c5ef3d">
+<title>Track order | Oracle (Cyrech Marketplace)</title>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+:root{--lemon:#c5ef3d;--ink:#111;--mute:#5b5e56;--line:#e4e6df;--soft:#f5f9e9}
+*{box-sizing:border-box}
+body{margin:0;background:#fff;color:var(--ink);font-family:'Bricolage Grotesque',system-ui,sans-serif;line-height:1.55}
+a{color:inherit}
+input,button{font:inherit}
+a:focus-visible,input:focus-visible,button:focus-visible{outline:3px solid #8bb800;outline-offset:2px}
+.topbar{background:#111;color:#fff;padding:.8rem max(1rem,calc((100vw - 1100px)/2));display:flex;align-items:center;justify-content:space-between;gap:1rem}
+.brand{color:#fff;text-decoration:none;font-weight:800;font-size:1.25rem}
+.brand span{color:var(--lemon)}
+.language-switch{padding:.4rem;border:1px solid #555;border-radius:5px;background:#111;color:#fff}
+.top-links{display:flex;gap:1rem;flex-wrap:wrap}
+.top-links a{color:#fff;text-decoration:none}
+main{max-width:1100px;margin:0 auto;padding:2rem 1rem 3rem}
+h1{font-size:clamp(2rem,4vw,3rem);line-height:1.05;letter-spacing:-.04em;margin:.2rem 0 .45rem}
+.intro{margin:0 0 1.2rem;color:var(--mute)}
+.lookup,.results{padding:1.2rem;margin-bottom:1rem;border:1px solid var(--line);border-radius:10px;background:#fff;box-shadow:0 6px 20px #11110a}
+.lookup-form{display:flex;gap:.65rem;flex-wrap:wrap}
+.lookup-form label{flex:1 1 270px;display:grid;gap:.25rem;font-size:.85rem;font-weight:700}
+.lookup-form input{width:100%;padding:.68rem .75rem;border:1px solid #b8c0c4;border-radius:6px}
+.button{padding:.68rem .95rem;border:0;border-radius:6px;background:var(--lemon);color:#111;font-weight:800;cursor:pointer}
+.status{min-height:1.4rem;margin:.5rem 0 0;color:var(--mute);font-size:.87rem}
+.status[data-kind=error]{color:#a32222}
+.tracking-heading{display:flex;justify-content:space-between;align-items:start;gap:1rem;flex-wrap:wrap}
+.badge{padding:.22rem .6rem;border-radius:99px;background:var(--soft);font-size:.8rem;font-weight:800;text-transform:capitalize}
+.map-frame{display:block;width:100%;height:380px;margin:.9rem 0;border:1px solid var(--line);border-radius:8px;background:var(--soft)}
+.map-link{color:#3f5c00;font-weight:700}
+.history{display:grid;gap:.65rem;margin-top:1rem}
+.update{padding:.8rem;border-left:3px solid var(--lemon);background:var(--soft);border-radius:0 6px 6px 0}
+.update strong{display:block;text-transform:capitalize}
+.update p{margin:.2rem 0;color:var(--mute);font-size:.88rem}
+.disclaimer{padding:.8rem;background:#fff8df;border-radius:6px;color:#514321;font-size:.82rem}
+[hidden]{display:none!important}
+.footer{background:#111;color:#eee;text-align:center;padding:1.1rem;font-size:.84rem}
+.footer a{color:var(--lemon);text-decoration:none}
+@media(max-width:600px){.topbar{align-items:flex-start;flex-direction:column}.lookup-form{display:grid}.map-frame{height:280px}}
+</style>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="services.html">Oracle <span>(Cyrech Marketplace)</span></a>
+  <nav class="top-links" aria-label="Main navigation"><a href="services.html" data-i18n="nav-products">Products</a><a href="admin.html" data-i18n="nav-account">My account</a><a href="contact.html" data-i18n="nav-contact">Contact</a><label for="languageSwitch" data-i18n="language-label">Language</label><select class="language-switch" id="languageSwitch"><option value="en">English</option><option value="fr">Français</option></select></nav>
+</header>
+<main>
+  <h1 data-i18n="track-title">Track your order</h1>
+  <p class="intro" data-i18n="track-copy">Enter the 32-character shipment code supplied by the seller to view the latest location they have shared.</p>
+  <section class="lookup">
+    <form class="lookup-form" id="trackForm">
+      <label data-i18n="tracking-code">Shipment tracking code<input id="trackingCode" name="code" autocomplete="off" minlength="32" maxlength="32" pattern="[A-Fa-f0-9]{32}" required placeholder="32-character code from your seller"></label>
+      <button class="button" type="submit" id="trackButton" data-i18n="find-shipment">Find shipment</button>
+    </form>
+    <p class="status" id="trackStatus" role="status" aria-live="polite"></p>
+  </section>
+  <section class="results" id="trackingResults" hidden>
+    <div class="tracking-heading">
+      <div><h2 id="productTitle"></h2><p id="trackingSummary"></p></div>
+      <span class="badge" id="orderStatus"></span>
+    </div>
+    <p class="disclaimer" data-i18n="track-disclaimer">This map shows the latest GPS point deliberately shared by the seller or carrier. It is not continuous or independently verified GPS tracking. Location sharing should be updated only for the active delivery.</p>
+    <iframe class="map-frame" id="trackingMap" title="Latest seller-reported shipment location" loading="lazy" referrerpolicy="no-referrer"></iframe>
+    <a class="map-link" id="openMap" target="_blank" rel="noopener noreferrer">Open latest point in Google Maps</a>
+    <h3>Shipment updates</h3>
+    <div class="history" id="trackingHistory"></div>
+  </section>
+</main>
+<footer class="footer">Oracle (Cyrech Marketplace) · <a href="mailto:kamegnesandra@gmail.com">kamegnesandra@gmail.com</a></footer>
+<script src="supabase-config.js"></script>
+<script src="language.js"></script>
+<script type="module">
+import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
+const config=window.MARKETPLACE_SUPABASE_CONFIG;
+const $=selector=>document.querySelector(selector);
+const safe=value=>String(value??'').replace(/[&<>"']/g,char=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
+const labels={processing:'Processing',shipped:'Shipped',in_transit:'In transit',out_for_delivery:'Out for delivery',delivered:'Delivered'};
+let supabase;
+function showStatus(message,kind=''){const el=$('#trackStatus');el.textContent=message;el.dataset.kind=kind}
+async function lookup(code){
+  if(!config?.url||!config?.anonKey)throw new Error('Shipment tracking is not configured.');
+  if(!supabase)supabase=createClient(config.url,config.anonKey);
+  const {data,error}=await supabase.functions.invoke('track-order',{body:{code}});
+  if(error)throw new Error(error.message||'Could not look up shipment');
+  if(data.error)throw new Error(data.error);
+  $('#productTitle').textContent=data.product_title;
+  $('#trackingSummary').textContent=`Code ${data.tracking_code} · Payment: ${data.payment_status==='received'?'received':'pending'}`;
+  $('#orderStatus').textContent=data.order_status.replaceAll('_',' ');
+  const history=$('#trackingHistory');
+  history.innerHTML='';
+  if(!data.updates?.length){
+    history.innerHTML='<p>No location updates have been shared yet. Ask the seller to post a shipment update.</p>';
+    $('#trackingMap').removeAttribute('src');
+    $('#openMap').hidden=true;
+  }else{
+    const newest=data.updates.find(update=>update.latitude!==null&&update.longitude!==null);
+    if(newest){
+      const lat=Number(newest.latitude),lon=Number(newest.longitude);
+      if(!Number.isFinite(lat)||!Number.isFinite(lon)||Math.abs(lat)>90||Math.abs(lon)>180)throw new Error('Shipment location point is invalid.');
+        const bounds=[lon-.03,lat-.02,lon+.03,lat+.02].map(value=>value.toFixed(6)).join(',');
+        const mapParams=new URLSearchParams({bbox:bounds,layer:'mapnik',marker:`${lat},${lon}`});
+        $('#trackingMap').src=`https://www.openstreetmap.org/export/embed.html?${mapParams}`;
+        $('#openMap').href=`https://maps.google.com/?q=${encodeURIComponent(`${lat},${lon}`)}`;
+      $('#openMap').hidden=false;
+    }else{
+      $('#trackingMap').removeAttribute('src');
+      $('#openMap').hidden=true;
+      history.insertAdjacentHTML('beforeend','<p>No GPS point has been shared with the shipment updates yet.</p>');
+    }
+    history.insertAdjacentHTML('afterbegin',data.updates.map(update=>{
+      const coordinates=update.latitude!==null&&update.longitude!==null?`GPS ${Number(update.latitude).toFixed(6)}, ${Number(update.longitude).toFixed(6)}`:'';
+      const date=new Date(update.created_at).toLocaleString();
+      return `<article class="update"><strong>${safe(labels[update.status_label]||update.status_label.replaceAll('_',' '))}</strong><p>${safe(update.location_label||coordinates||'Location not specified')}</p>${update.note?`<p>${safe(update.note)}</p>`:''}<p>${safe(date)}</p></article>`;
+    }).join(''));
+  }
+  $('#trackingResults').hidden=false;
+  showStatus(`Shipment details refreshed at ${new Date().toLocaleTimeString()}.`);
+}
+$('#trackForm').addEventListener('submit',async event=>{
+  event.preventDefault();
+  const code=$('#trackingCode').value.trim().toUpperCase();
+  $('#trackingCode').value=code;
+  $('#trackButton').disabled=true;
+  $('#trackingResults').hidden=true;
+  showStatus('Looking up your shipment…');
+  try{await lookup(code)}catch(error){showStatus(error.message,'error')}
+  finally{$('#trackButton').disabled=false}
+});
+const initialCode=new URLSearchParams(location.search).get('code');
+if(initialCode){$('#trackingCode').value=initialCode;$('#trackForm').requestSubmit()}
+</script>
+</body>
+</html>

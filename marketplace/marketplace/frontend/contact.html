@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#c5ef3d">
+<title>Contact us | Oracle (Cyrech Marketplace)</title>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#fff;--card:#fff;--ink:#111;--mute:#5b5e56;--line:#e4e6df;--gold:#c5ef3d;color-scheme:light}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:'Bricolage Grotesque',system-ui,sans-serif;line-height:1.5}
+a{color:inherit}
+a:focus-visible,input:focus-visible,textarea:focus-visible,button:focus-visible{outline:3px solid #ff9900;outline-offset:2px}
+.topbar{background:#111;color:#fff;padding:.8rem max(1rem,calc((100vw - 1200px)/2));display:flex;align-items:center;justify-content:space-between;gap:1rem}
+.logo{color:#fff;text-decoration:none;font-size:1.5rem;font-weight:800;letter-spacing:-.04em}
+.logo span{color:#c5ef3d}
+.language-switch{padding:.4rem;border:1px solid #555;border-radius:5px;background:#111;color:#fff}
+.site-search{display:flex;flex:1;max-width:500px;min-width:180px;gap:0}
+.site-search input{flex:1;min-width:0;height:40px;padding:.5rem .65rem;border:0;border-radius:5px 0 0 5px;background:#fff;color:#17212b;font:inherit}
+.site-search button{justify-self:auto;height:40px;padding:.45rem .8rem;border:0;border-radius:0 5px 5px 0;background:#c5ef3d;color:#111;font:inherit;font-weight:700}
+.top-links{display:flex;gap:1rem;align-items:center}
+.top-links a{color:#fff;text-decoration:none;font-size:.9rem}
+.top-links a:hover{text-decoration:underline}
+.banner{background:#111;color:#fff;padding:.55rem max(1rem,calc((100vw - 1200px)/2));font-size:.88rem}
+main{max-width:1100px;margin:0 auto;padding:2.5rem 1rem 3.5rem}
+.intro{max-width:680px;margin:0 auto 1.6rem;text-align:center}
+.eyebrow{color:#087e83;font-size:.75rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase}
+h1{font-size:clamp(2rem,5vw,3.2rem);line-height:1.05;letter-spacing:-.04em;margin:.4rem 0 .7rem}
+.intro p{color:var(--mute);margin:0}
+.contact-layout{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem;align-items:stretch}
+.contact-info,.contact-form{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:clamp(1.1rem,3vw,1.8rem);box-shadow:0 6px 20px #17212b0d}
+.contact-form{padding:1rem}
+.contact-info{background:#111;color:#fff}
+.contact-info h2,.contact-form h2{margin:0 0 .5rem;font-size:1.25rem}
+.contact-info>p{margin:0 0 1.3rem;color:#d4e4dc;font-size:.9rem}
+.contact-method{border-top:1px solid #ffffff40;padding:.9rem 0}
+.contact-method small{display:block;color:#c5ef3d;text-transform:uppercase;font-size:.7rem;font-weight:800;letter-spacing:.1em}
+.contact-method a{display:inline-block;margin-top:.2rem;color:#fff;text-decoration:none;font-weight:600;overflow-wrap:anywhere}
+.contact-method a:hover{text-decoration:underline}
+.contact-form>p{margin:.1rem 0 .55rem;color:var(--mute);font-size:.82rem}
+.contact-form form{display:grid;gap:.38rem}
+.contact-form label{display:grid;gap:.15rem;font-size:.8rem;font-weight:600}
+.contact-form input,.contact-form textarea{width:100%;border:1px solid #b8c0c4;border-radius:5px;background:#fff;color:#17212b;padding:.45rem .6rem;font:inherit}
+.contact-form textarea{min-height:72px;resize:vertical}
+.contact-form button{justify-self:start;border:1px solid #fcd200;border-radius:5px;background:var(--gold);color:#111;padding:.55rem .8rem;font:inherit;font-weight:700;cursor:pointer}
+.form-note{font-size:.75rem;color:var(--mute);margin:0}
+.location-layout{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem;margin-top:1rem;align-items:stretch}
+.location-card{min-width:0;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:1.1rem;box-shadow:0 6px 20px #17212b0d}
+.location-details{background:#111;color:#fff}
+.location-heading{display:flex;justify-content:space-between;align-items:flex-start;gap:1rem;margin-bottom:.9rem}
+.location-heading h2{margin:0 0 .35rem;font-size:1.15rem}
+.location-heading p{margin:0;color:var(--mute);font-size:.84rem}
+.location-details .location-heading p{color:#d4e4dc}
+.map-frame{display:block;width:100%;height:250px;border:0;border-radius:7px;background:#dce4e4}
+.map-links{display:grid;justify-items:start;gap:.7rem;margin-top:1rem}
+.map-links a{color:#087e83;font-size:.82rem;font-weight:600;overflow-wrap:anywhere}
+.location-details .map-links a{color:#c5ef3d}
+.map-links button{justify-self:auto}
+.map-links button{font-size:.84rem;padding:.6rem .75rem}
+.gps-status{margin:0;color:var(--mute);font-size:.78rem}
+.location-details .gps-status{color:#d4e4dc}
+.gps-status:empty{display:none}
+.gps-directions[hidden]{display:none}
+.footer{background:#111;color:#eee;text-align:center;padding:1.15rem 1rem;font-size:.82rem}
+.footer a{color:#c5ef3d;text-decoration:none}
+@media(max-width:700px){.contact-layout,.location-layout{grid-template-columns:1fr}.topbar{align-items:stretch;flex-direction:column}.site-search{max-width:none;width:100%}.top-links{flex-wrap:wrap;gap:.7rem}.map-frame{height:230px}}
+</style>
+</head>
+<body>
+<header class="topbar">
+  <a class="logo" href="index.html" aria-label="Oracle Cyrech Marketplace home">Oracle<span> (Cyrech Marketplace)</span></a>
+  <form class="site-search" action="services.html#catalog" method="get" role="search" aria-label="Search marketplace products">
+    <input type="search" name="search" placeholder="Search products" aria-label="Search marketplace products">
+    <button type="submit">Search</button>
+  </form>
+  <nav class="top-links" aria-label="Main navigation">
+    <a href="index.html#categories">Categories</a>
+    <a href="index.html#catalog">Shop products</a>
+    <a href="services.html" data-i18n="nav-products">Products</a>
+    <a href="track.html" data-i18n="nav-track">Track order</a>
+    <a href="admin.html" data-i18n="nav-account">Account</a>
+    <a href="about.html" data-i18n="nav-about">About &amp; policies</a>
+    <a href="index.html" data-i18n="nav-home">Home</a>
+    <label for="languageSwitch" data-i18n="language-label">Language</label><select class="language-switch" id="languageSwitch" aria-label="Language"><option value="en">English</option><option value="fr">Français</option></select>
+  </nav>
+</header>
+<div class="banner">Oracle (Cyrech Marketplace) · We’d love to hear from you</div>
+<main>
+  <section class="intro">
+    <span class="eyebrow">Here to help</span>
+    <h1>Get in touch</h1>
+    <p>Have a question about shopping, an order, or selling with us? Send us a message or reach us directly.</p>
+  </section>
+  <div class="location-layout">
+    <section class="location-card location-details" aria-labelledby="locationHeading">
+      <div class="location-heading">
+        <div>
+          <h2 id="locationHeading">Our address</h2>
+          <p>TAM-TAM WEEK-END<br>TAM-TAM, Yaoundé, Cameroon</p>
+        </div>
+      </div>
+      <div class="map-links">
+        <a href="https://maps.google.com/?cid=1220476469110540613" target="_blank" rel="noopener noreferrer">Open TAM-TAM WEEK-END in Google Maps</a>
+        <button id="gpsButton" type="button">Use my GPS for directions</button>
+        <a id="gpsDirections" class="gps-directions" hidden target="_blank" rel="noopener noreferrer">Open directions from my location</a>
+        <p id="gpsStatus" class="gps-status" role="status" aria-live="polite"></p>
+      </div>
+    </section>
+    <section class="location-card" aria-labelledby="mapHeading">
+      <div class="location-heading">
+        <div>
+          <h2 id="mapHeading">Live map</h2>
+          <p>Map pin for TAM-TAM, Yaoundé.</p>
+        </div>
+      </div>
+      <iframe
+        class="map-frame"
+        title="Map showing TAM-TAM WEEK-END in Yaoundé, Cameroon"
+        src="https://maps.google.com/maps?q=3.8316289%2C11.4889261&amp;z=15&amp;output=embed"
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+        allowfullscreen>
+      </iframe>
+    </section>
+  </div>
+  <div class="contact-layout">
+    <section class="contact-info" aria-labelledby="contactInfoHeading">
+      <h2 id="contactInfoHeading">Contact details</h2>
+      <p>Choose whichever way is easiest. We look forward to hearing from you.</p>
+      <div class="contact-method">
+        <small>Email</small>
+        <a href="mailto:kamegnesandra@gmail.com">kamegnesandra@gmail.com</a>
+      </div>
+      <div class="contact-method">
+        <small>Phone</small>
+        <a href="tel:652111668">652 111 668</a>
+      </div>
+      <div class="contact-method">
+        <small>Marketplace</small>
+        <a href="index.html">Browse the storefront</a>
+      </div>
+    </section>
+    <section class="contact-form" aria-labelledby="messageHeading">
+      <h2 id="messageHeading">Send us a message</h2>
+      <p>Complete the form and your email app will open with your message ready to send.</p>
+      <form id="contactForm">
+        <label for="contactName">Your name</label>
+        <input id="contactName" name="name" autocomplete="name" required>
+        <label for="contactEmail">Your email</label>
+        <input id="contactEmail" name="email" type="email" autocomplete="email" required>
+        <label for="contactSubject">Subject</label>
+        <input id="contactSubject" name="subject" required>
+        <label for="contactMessage">Message</label>
+        <textarea id="contactMessage" name="message" required></textarea>
+        <button type="submit">Open email to send</button>
+        <p class="form-note">Your message is sent through your email provider, not stored on this website.</p>
+      </form>
+    </section>
+  </div>
+</main>
+<footer class="footer">© 2026 Oracle (Cyrech Marketplace) · <a href="index.html">Back to home</a> · <a href="mailto:kamegnesandra@gmail.com">kamegnesandra@gmail.com</a></footer>
+<script>
+document.querySelector('#contactForm').addEventListener('submit',event=>{
+  event.preventDefault();
+  const form=new FormData(event.currentTarget);
+  const subject=`Marketplace contact: ${form.get('subject')}`;
+  const body=[
+    `Name: ${form.get('name')}`,
+    `Reply email: ${form.get('email')}`,
+    '',
+    form.get('message')
+  ].join('\n');
+  window.location.href=`mailto:kamegnesandra@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+});
+const destination='3.8316289,11.4889261';
+const gpsStatus=document.querySelector('#gpsStatus');
+document.querySelector('#gpsButton').addEventListener('click',()=>{
+  const directions=document.querySelector('#gpsDirections');
+  directions.hidden=true;
+  if(!navigator.geolocation){
+    gpsStatus.textContent='GPS location is not available in this browser.';
+    return;
+  }
+  gpsStatus.textContent='Requesting your location…';
+  navigator.geolocation.getCurrentPosition(position=>{
+    const origin=`${position.coords.latitude},${position.coords.longitude}`;
+    directions.href=`https://www.google.com/maps/dir/?api=1&origin=${encodeURIComponent(origin)}&destination=${encodeURIComponent(destination)}&travelmode=driving`;
+    directions.hidden=false;
+    gpsStatus.textContent='Your location is ready. Open directions to continue in Google Maps.';
+  },error=>{
+    gpsStatus.textContent=error.code===error.PERMISSION_DENIED
+      ?'Location permission was denied. Allow location access in your browser and try again.'
+      :'Could not get your location. Check your device GPS and try again.';
+  },{enableHighAccuracy:true,timeout:10000,maximumAge:60000});
+});
+</script>
+<script src="language.js"></script>
+</body>
+</html>

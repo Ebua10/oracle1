@@ -1,0 +1,393 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Oracle (Cyrech Marketplace)</title>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#fff;--card:#fff;--ink:#111;--mute:#5b5e56;--line:#e4e6df;--acc:#557500;--hot:#b3261e;--gold:#c5ef3d;color-scheme:light}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:'Bricolage Grotesque',system-ui,sans-serif;line-height:1.45}
+input,select,button,textarea{font:inherit;color:inherit}
+input,select,textarea{background:var(--bg);border:1px solid var(--line);border-radius:5px;padding:.65rem .75rem;min-width:0}
+button{cursor:pointer;border:1px solid var(--line);background:var(--card);border-radius:5px;padding:.55rem .9rem}
+button.primary{background:var(--gold);border-color:#fcd200;color:#111;font-weight:700}
+button:focus-visible,input:focus-visible,select:focus-visible,a:focus-visible{outline:3px solid #ff9900;outline-offset:2px}
+.top-header{position:sticky;top:0;z-index:10;background:#111;color:#fff;display:flex;gap:.8rem;align-items:center;padding:.65rem max(1rem,calc((100vw - 1440px)/2))}
+.logo{color:#fff;text-decoration:none;font-weight:800;font-size:1.45rem;letter-spacing:-.04em;white-space:nowrap;padding:.2rem .35rem;border:1px solid transparent}
+.logo:hover,.header-action:hover{border-color:#fff}
+.logo-mark{color:#c5ef3d}
+.language-switch{padding:.4rem;border:1px solid #555;border-radius:5px;background:#111;color:#fff}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+#search{flex:1;min-width:120px;border-radius:5px 0 0 5px;background:#fff;color:#17212b;border:0;height:42px}
+.search-button{height:42px;margin-left:-.8rem;border:0;border-radius:0 5px 5px 0;background:#c5ef3d;color:#111;font-size:1.1rem;padding:0 1rem}
+.header-action{background:transparent;color:#fff;border-color:transparent;border-radius:3px;white-space:nowrap;padding:.3rem .5rem;text-align:left}
+.header-action small{display:block;color:#d6d6d6;font-size:.7rem;line-height:1.1}
+.header-action strong{font-size:.88rem}
+.browse-header{background:#111;color:#fff;display:flex;align-items:center;gap:.2rem;padding:.45rem max(1rem,calc((100vw - 1440px)/2));overflow-x:auto;white-space:nowrap}
+.browse-header a{color:#fff;text-decoration:none;font-size:.88rem;padding:.3rem .55rem;border:1px solid transparent;border-radius:2px}
+.browse-header a:hover{border-color:#fff}
+.promo-header{background:#f5f9e9;color:#111;text-align:center;padding:.5rem 1rem;font-size:.9rem}
+.promo-header strong{color:#425b00}
+.hero-header{position:relative;min-height:320px;display:flex;align-items:center;overflow:hidden;background:#d9e3e3 url('https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=2000&q=85') center 43%/cover no-repeat}
+.hero-header:before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(13,25,34,.82),rgba(13,25,34,.43) 50%,rgba(13,25,34,.05))}
+.hero-copy{position:relative;max-width:1440px;width:100%;margin:0 auto;padding:3rem 2rem;color:#fff}
+.hero-copy h1{font-size:clamp(2.2rem,5vw,4.2rem);line-height:1.02;max-width:650px;margin:0 0 .8rem;letter-spacing:-.04em}
+.hero-copy p{font-size:1.1rem;max-width:520px;color:#f1f3f3;margin:0 0 1.3rem}
+.hero-copy button{padding:.7rem 1.2rem}
+main{max-width:1440px;margin:0 auto;padding:1.25rem 1rem 3rem}
+.section-heading{display:flex;justify-content:space-between;align-items:end;gap:1rem;margin:0 0 .85rem}
+.section-heading h2{font-size:1.45rem;margin:0;letter-spacing:-.02em}
+.section-heading p{margin:0;color:var(--mute);font-size:.9rem}
+.category-section{margin:0 0 1.5rem}
+.category-tiles{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1rem}
+.category-tile{min-height:190px;position:relative;overflow:hidden;border:0;border-radius:7px;background:#253846 center/cover no-repeat;color:#fff;text-align:left;padding:1rem;display:flex;align-items:end;box-shadow:0 3px 12px #17212b20}
+.category-tile:before{content:"";position:absolute;inset:35% 0 0;background:linear-gradient(transparent,rgba(8,19,27,.82))}
+.category-tile span{position:relative;font-size:1.1rem;font-weight:800;text-shadow:0 1px 3px #000}
+.category-tile:hover{filter:brightness(1.08)}
+.thoughtful-section{display:grid;grid-template-columns:minmax(240px,.9fr) 1.1fr;background:#111;color:#fff;border-radius:10px;overflow:hidden;margin:0 0 1.5rem;box-shadow:0 8px 24px #17212b16}
+.thoughtful-image{min-height:330px;background:#b9c9b8 url('https://images.unsplash.com/photo-1578749556568-bc2c40e68b61?auto=format&fit=crop&w=1100&q=85') center/cover no-repeat}
+.thoughtful-content{padding:clamp(1.3rem,4vw,2.6rem)}
+.thoughtful-eyebrow{display:inline-block;margin-bottom:.6rem;color:#c5ef3d;text-transform:uppercase;letter-spacing:.13em;font-size:.73rem;font-weight:800}
+.thoughtful-content h2{max-width:480px;margin:0 0 .45rem;font-size:clamp(1.6rem,3vw,2.3rem);line-height:1.08}
+.thoughtful-intro{max-width:54ch;margin:0 0 1.2rem;color:#d4e4dc;font-size:.92rem}
+.thoughtful-list{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.8rem;margin:0 0 1.1rem}
+.thoughtful-tip{border-top:1px solid #ffffff50;padding-top:.65rem}
+.thoughtful-tip span{display:block;color:#c5ef3d;font-size:.72rem;font-weight:800;letter-spacing:.08em}
+.thoughtful-tip h3{margin:.25rem 0;font-size:.95rem}
+.thoughtful-tip p{margin:0;color:#d4e4dc;font-size:.8rem}
+.thoughtful-note{margin:.85rem 0 0;color:#c3d5ce;font-size:.73rem}
+.thoughtful-content .primary{padding:.65rem 1rem;background:#c5ef3d;color:#111}
+.featured-section{margin:0 0 1.5rem}
+.featured-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1rem}
+.featured-item{min-width:0;padding:0;overflow:hidden;text-align:left;background:var(--card);border:1px solid var(--line);border-radius:7px;box-shadow:0 2px 6px #17212b0d}
+.featured-item img{display:block;width:100%;aspect-ratio:4/3;object-fit:cover;background:#d9e3e3}
+.featured-item-copy{display:grid;gap:.2rem;padding:.7rem .8rem}
+.featured-item-copy strong{font-size:.98rem}
+.featured-item-copy span{font-size:.8rem;color:var(--acc)}
+.featured-item:hover{border-color:var(--acc)}
+.video-section{margin:0 0 1.5rem}
+.video-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1rem}
+.video-card{min-width:0;overflow:hidden;background:var(--card);border:1px solid var(--line);border-radius:7px;box-shadow:0 2px 6px #17212b0d}
+.video-card video{display:block;width:100%;aspect-ratio:16/10;object-fit:cover;background:#d9e3e3}
+.video-caption{padding:.75rem .85rem}
+.video-caption h3{margin:0 0 .2rem;font-size:1rem}
+.video-caption p{margin:0;color:var(--mute);font-size:.82rem}
+.video-credit{display:inline-block;margin-top:.35rem;color:var(--acc);font-size:.75rem}
+.catalog-panel{background:var(--card);border:1px solid var(--line);border-radius:7px;padding:1.1rem}
+.filters{display:flex;gap:.55rem;flex-wrap:wrap;margin:.9rem 0 1.1rem}
+.filters select{background:var(--card);min-width:155px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(215px,1fr));gap:1rem}
+.card{background:var(--card);border:1px solid var(--line);border-radius:7px;overflow:hidden;cursor:pointer;display:flex;flex-direction:column;box-shadow:0 2px 6px #17212b0d}
+.card .img{aspect-ratio:4/3;background:var(--line) center/cover}
+.card .b{padding:.8rem;display:flex;flex-direction:column;gap:.28rem}
+.price{font-weight:800;font-size:1.1rem}.mute{color:var(--mute);font-size:.88rem}
+.tag{align-self:flex-start;font-size:.76rem;font-weight:600;border-radius:99px;padding:.1rem .6rem;border:1px solid var(--line)}
+.tag.flash{background:var(--hot);color:#fff;border-color:var(--hot)}.tag.auction{background:var(--gold);color:#241a00;border-color:var(--gold)}
+dialog{border:1px solid var(--line);border-radius:12px;background:var(--card);color:var(--ink);max-width:520px;width:92vw;padding:1.2rem}
+dialog::backdrop{background:#0008}
+dialog form,.stack{display:grid;gap:.6rem}
+.row{display:flex;justify-content:space-between;gap:.5rem;align-items:center}
+#toast{position:fixed;bottom:1rem;left:50%;transform:translateX(-50%);z-index:20;background:var(--ink);color:var(--bg);padding:.6rem 1rem;border-radius:8px;display:none}
+@media(prefers-reduced-motion:no-preference){.card,.category-tile{transition:transform .12s,filter .12s}.card:hover,.category-tile:hover{transform:translateY(-2px)}}
+@media(max-width:980px){.top-header{flex-wrap:wrap;padding:.55rem .75rem;gap:.45rem}.top-header #search{order:5;flex:1 1 calc(100% - 56px);min-width:0}.search-button{order:6;flex:0 0 42px;margin-left:0}}
+@media(max-width:900px){.thoughtful-section{grid-template-columns:1fr 1.25fr}.thoughtful-list{grid-template-columns:1fr}.thoughtful-image{min-height:100%}}
+@media(max-width:760px){.hero-header{min-height:280px}.hero-copy{padding:2rem 1.2rem}.category-tiles,.featured-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.category-tile{min-height:150px}.thoughtful-section{grid-template-columns:1fr}.thoughtful-image{min-height:210px}.thoughtful-list{grid-template-columns:repeat(2,minmax(0,1fr))}.video-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.header-action small{display:none}}
+@media(max-width:520px){.thoughtful-list{grid-template-columns:1fr 1fr}.thoughtful-tip:last-child{grid-column:1/-1}}
+@media(max-width:360px){.thoughtful-list{grid-template-columns:1fr}.thoughtful-tip:last-child{grid-column:auto}}
+@media(max-width:430px){.header-action{padding:.3rem}.header-action strong{font-size:.75rem}.category-tiles{gap:.65rem}.category-tile{min-height:130px;padding:.7rem}.video-grid,.featured-grid{grid-template-columns:1fr}.catalog-panel{padding:.75rem}.section-heading{display:block}.section-heading p{margin-top:.25rem}}
+.site-footer{background:#111;color:#fff;padding:2.2rem max(1rem,calc((100vw - 1440px)/2)) 1rem}
+.footer-main{display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:2rem;padding-bottom:1.5rem}
+.footer-brand p{max-width:34ch;margin:.65rem 0 0;color:#c5cbd2;font-size:.88rem}
+.footer-logo{display:inline-block;color:#fff;text-decoration:none;font-size:1.5rem;font-weight:800;letter-spacing:-.04em}
+.footer-logo span{color:#c5ef3d}
+.footer-group h2{margin:.1rem 0 .65rem;font-size:.95rem}
+.footer-links{display:grid;gap:.45rem}
+.footer-links a{width:fit-content;color:#d4d8dc;text-decoration:none;font-size:.86rem}
+.footer-links a:hover{text-decoration:underline;color:#fff}
+.footer-bottom{display:flex;justify-content:space-between;align-items:center;gap:1rem;border-top:1px solid #ffffff30;padding-top:.85rem;color:#c5cbd2;font-size:.8rem}
+.footer-bottom a{color:#fff;text-decoration:none}
+@media(max-width:650px){.footer-main{grid-template-columns:1fr 1fr;gap:1.5rem}.footer-brand{grid-column:1/-1}.footer-bottom{align-items:flex-start;flex-direction:column}}
+</style>
+</head>
+<body id="top">
+<header class="top-header">
+  <a class="logo" href="#top" aria-label="Oracle Cyrech Marketplace home">Oracle <span class="logo-mark">(Cyrech Marketplace)</span></a>
+  <input id="search" type="search" placeholder="Search products" aria-label="Search products">
+  <button class="search-button" aria-label="Search">⌕</button>
+  <button id="ordersBtn" class="header-action"><small>Your</small><strong>Orders</strong></button>
+  <button id="authBtn" class="header-action"><small>Welcome</small><strong>Sign in</strong></button>
+  <button id="cartBtn" class="header-action" aria-label="Shopping cart"><small>Your</small><strong>🛒 Cart</strong></button>
+  <label class="sr-only" for="languageSwitch" data-i18n="language-label">Language</label><select class="language-switch" id="languageSwitch" aria-label="Language"><option value="en">English</option><option value="fr">Français</option></select>
+</header>
+<nav class="browse-header" aria-label="Main navigation">
+  <a href="#categories">☰ All</a>
+  <a href="services.html" data-i18n="nav-products">Products</a>
+  <a href="admin.html" data-i18n="nav-account">Account</a>
+  <a href="track.html" data-i18n="nav-track">Track order</a>
+  <a href="#catalog">Today's deals</a>
+  <a href="#categories">Shop by category</a>
+  <a href="#catalog">Auctions</a>
+  <a href="#catalog">Flash sales</a>
+  <a href="#catalog">Bulk savings</a>
+  <a href="services.html">Products</a>
+</nav>
+<div class="promo-header"><strong>Marketplace finds, all in one place.</strong> Discover independent sellers and limited-time offers.</div>
+<header class="hero-header">
+  <div class="hero-copy">
+    <h1 data-i18n="home-title">Find something worth keeping.</h1>
+    <p data-i18n="home-copy">Thoughtful finds from independent shops, everyday essentials, and one easy checkout.</p>
+    <button class="primary" data-i18n="home-cta" onclick="document.querySelector('#catalog').scrollIntoView({behavior:'smooth'})">Explore the marketplace</button>
+  </div>
+</header>
+<main>
+  <section id="categories" class="category-section">
+    <div class="section-heading"><h2 data-i18n="home-categories">Explore by category</h2><p>Browse a little, find a lot.</p></div>
+    <div id="categoryTiles" class="category-tiles"></div>
+  </section>
+  <section class="thoughtful-section" aria-labelledby="thoughtfulHeading">
+    <div class="thoughtful-image" role="img" aria-label="Handmade ceramic pottery in a crafts studio"></div>
+    <div class="thoughtful-content">
+      <span class="thoughtful-eyebrow">Good finds, considered</span>
+      <h2 id="thoughtfulHeading">Shop with a little more intention.</h2>
+      <p class="thoughtful-intro">A thoughtful purchase starts with good information. Take a moment to learn about the item, the maker, and what matters to you.</p>
+      <div class="thoughtful-list">
+        <article class="thoughtful-tip">
+          <span>01 / THE MAKER</span>
+          <h3>Look beyond the listing</h3>
+          <p>Notice the store name and learn who is behind the product.</p>
+        </article>
+        <article class="thoughtful-tip">
+          <span>02 / THE MATERIALS</span>
+          <h3>Check the details</h3>
+          <p>Read descriptions carefully and ask about materials or origin when unclear.</p>
+        </article>
+        <article class="thoughtful-tip">
+          <span>03 / YOUR NEEDS</span>
+          <h3>Choose for the long run</h3>
+          <p>Compare quality and usefulness, not just the first impression.</p>
+        </article>
+      </div>
+      <button class="primary" type="button" onclick="document.querySelector('#catalog').scrollIntoView({behavior:'smooth'})">Browse with care</button>
+      <p class="thoughtful-note">Product details come from sellers. Check individual listings; this marketplace does not certify sustainability or ethical sourcing.</p>
+    </div>
+  </section>
+  <section class="featured-section" aria-labelledby="featuredHeading">
+    <div class="section-heading"><h2 id="featuredHeading" data-i18n="home-featured">Featured finds</h2><p>Tap an item to browse its category</p></div>
+    <div class="featured-grid">
+      <button class="featured-item" type="button" onclick="shopCategory('Home')">
+        <img src="https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&amp;fit=crop&amp;w=800&amp;q=80" alt="Soft neutral home textiles">
+        <span class="featured-item-copy"><strong>Handwoven Cotton Throw</strong><span>Explore Home</span></span>
+      </button>
+      <button class="featured-item" type="button" onclick="shopCategory('Electronics')">
+        <img src="https://images.unsplash.com/photo-1498049794561-7780e7231661?auto=format&amp;fit=crop&amp;w=800&amp;q=80" alt="Compact speaker and audio equipment">
+        <span class="featured-item-copy"><strong>Studio Speaker Mini</strong><span>Explore Electronics</span></span>
+      </button>
+      <button class="featured-item" type="button" onclick="shopCategory('Electronics')">
+        <img src="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&amp;fit=crop&amp;w=800&amp;q=80" alt="Camera ready for a photo shoot">
+        <span class="featured-item-copy"><strong>Vintage Field Camera</strong><span>Explore Electronics</span></span>
+      </button>
+      <button class="featured-item" type="button" onclick="shopCategory('Beauty')">
+        <img src="https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?auto=format&amp;fit=crop&amp;w=800&amp;q=80" alt="Beauty and self-care products">
+        <span class="featured-item-copy"><strong>Herbal Recovery Kit</strong><span>Explore Beauty</span></span>
+      </button>
+    </div>
+  </section>
+  <section class="video-section" aria-labelledby="videoHeading">
+    <div class="section-heading"><h2 id="videoHeading" data-i18n="home-videos">See products in action</h2><p>Quick video previews from our community</p></div>
+    <div class="video-grid">
+      <article class="video-card">
+        <video muted loop playsinline controls preload="none" poster="https://images.pexels.com/videos/7019510/pexels-photo-7019510.jpeg" aria-label="Skincare oils and droppers being used">
+          <source src="https://videos.pexels.com/video-files/7019510/7019510-hd_1920_1080_25fps.mp4" type="video/mp4">
+        </video>
+        <div class="video-caption">
+          <h3>A little self-care</h3>
+          <p>See a skincare product as part of a daily routine.</p>
+          <a class="video-credit" href="https://www.pexels.com/video/video-of-hands-using-droppers-7019510/" target="_blank" rel="noopener noreferrer">Video by Yan Krukau · Pexels</a>
+        </div>
+      </article>
+      <article class="video-card">
+        <video muted loop playsinline controls preload="none" poster="https://images.pexels.com/videos/4763619/hand-lotion-spa-woman-4763619.jpeg" aria-label="Serum bottle and skincare products">
+          <source src="https://videos.pexels.com/video-files/4763619/4763619-hd_1920_1080_25fps.mp4" type="video/mp4">
+        </video>
+        <div class="video-caption">
+          <h3>Details that matter</h3>
+          <p>A closer look at everyday beauty essentials.</p>
+          <a class="video-credit" href="https://www.pexels.com/video/placing-a-dropper-back-on-its-bottle-4763619/" target="_blank" rel="noopener noreferrer">Video by Karola G · Pexels</a>
+        </div>
+      </article>
+      <article class="video-card">
+        <video muted loop playsinline controls preload="none" poster="https://images.pexels.com/videos/2376984/free-video-2376984.jpg" aria-label="Close-up of electronic circuit components">
+          <source src="https://videos.pexels.com/video-files/2376984/2376984-hd_1920_1080_24fps.mp4" type="video/mp4">
+        </video>
+        <div class="video-caption">
+          <h3>Tech up close</h3>
+          <p>Take a quick look at the details inside electronics.</p>
+          <a class="video-credit" href="https://www.pexels.com/video/close-up-shot-of-a-circuit-board-2376984/" target="_blank" rel="noopener noreferrer">Video by Video Kickstarter · Pexels</a>
+        </div>
+      </article>
+    </div>
+  </section>
+  <section id="catalog" class="catalog-panel">
+    <div class="section-heading"><h2 data-i18n="home-catalog">Shop popular finds</h2><p>Great picks from independent sellers · CFA francs (XAF)</p></div>
+    <div class="filters">
+      <select id="category" aria-label="Category"><option value="">All categories</option></select>
+      <select id="saleType" aria-label="Sale type"><option value="">All sale types</option><option value="fixed">Fixed price</option><option value="auction">Auctions</option><option value="flash">Flash sales</option></select>
+      <select id="sort" aria-label="Sort"><option value="">Newest</option><option value="price_asc">Price: low to high</option><option value="price_desc">Price: high to low</option></select>
+    </div>
+    <div id="grid" class="grid"></div>
+  </section>
+</main>
+<footer class="site-footer">
+  <div class="footer-main">
+    <div class="footer-brand">
+      <a class="footer-logo" href="#top" aria-label="Oracle Cyrech Marketplace home">Oracle <span>(Cyrech Marketplace)</span></a>
+      <p>Discover independent sellers, thoughtful finds, and everyday favorites in one marketplace.</p>
+    </div>
+    <nav class="footer-group" aria-label="Footer pages">
+      <h2>Explore</h2>
+      <div class="footer-links">
+        <a href="#categories">Shop by category</a>
+        <a href="#featuredHeading">Featured finds</a>
+        <a href="#videoHeading">Product videos</a>
+        <a href="#catalog">All products &amp; deals</a>
+        <a href="contact.html">Contact us</a>
+        <a href="about.html">About &amp; policies</a>
+        <a href="services.html">All products</a>
+        <a href="admin.html">Client account / Admin</a>
+        <a href="track.html">Track order</a>
+      </div>
+    </nav>
+    <div class="footer-group">
+      <h2>Contact</h2>
+      <div class="footer-links">
+        <a href="mailto:kamegnesandra@gmail.com">kamegnesandra@gmail.com</a>
+        <a href="tel:652111668">652 111 668</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>&copy; 2026 Oracle (Cyrech Marketplace)</span>
+    <a href="#top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false">Back to top ↑</a>
+  </div>
+</footer>
+
+<dialog id="authDlg"><form id="authForm">
+  <h2 id="authTitle">Sign in</h2>
+  <input name="name" placeholder="Full name" id="nameField" hidden>
+  <input name="email" type="email" placeholder="Email" required>
+  <input name="password" type="password" placeholder="Password (8+ characters)" required>
+  <select name="role" id="roleField" hidden><option value="buyer">I want to buy</option><option value="seller">I want to sell</option></select>
+  <button class="primary">Continue</button>
+  <button type="button" id="switchAuth">Create an account</button>
+  <button type="button" id="closeAuth" value="x">Close</button>
+</form></dialog>
+<dialog id="dlg"><div id="dlgBody" class="stack"></div><button style="margin-top:.8rem" onclick="dlg.close()">Close</button></dialog>
+<div id="toast" role="status"></div>
+
+<script src="language.js"></script>
+<script>
+const $=s=>document.querySelector(s);let user=JSON.parse(localStorage.user||'null'),tok=localStorage.tok||'',signup=false;
+$('#search').value=new URLSearchParams(location.search).get('search')||'';
+const money=n=>new Intl.NumberFormat('fr-CM',{style:'currency',currency:'XAF',maximumFractionDigits:0}).format(Number(n));
+const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+function toast(m){const t=$('#toast');t.textContent=m;t.style.display='block';setTimeout(()=>t.style.display='none',2800)}
+async function api(p,o={}){const r=await fetch('/api'+p,{method:o.method||(o.body?'POST':'GET'),headers:{'Content-Type':'application/json',Authorization:'Bearer '+tok},body:o.body&&JSON.stringify(o.body)});
+  const d=await r.json().catch(()=>({}));if(!r.ok)throw new Error(d.error||'Something went wrong');return d}
+const guard=f=>async(...a)=>{try{await f(...a)}catch(e){toast(e.message)}};
+function syncAuth(){$('#authBtn').textContent=user?'Sign out ('+user.name.split(' ')[0]+')':'Sign in'}
+$('#authBtn').onclick=()=>{if(user){user=null;tok='';localStorage.removeItem('user');localStorage.removeItem('tok');syncAuth();toast('Signed out')}else authDlg.showModal()};
+$('.search-button').onclick=guard(load);
+$('#closeAuth').onclick=()=>authDlg.close();
+$('#switchAuth').onclick=()=>{signup=!signup;$('#authTitle').textContent=signup?'Create account':'Sign in';$('#nameField').hidden=$('#roleField').hidden=!signup;$('#switchAuth').textContent=signup?'I already have an account':'Create an account'};
+$('#authForm').onsubmit=guard(async e=>{e.preventDefault();const b=Object.fromEntries(new FormData(e.target));
+  const d=await api(signup?'/auth/register':'/auth/login',{body:b});user=d.user;tok=d.token;localStorage.user=JSON.stringify(user);localStorage.tok=tok;syncAuth();authDlg.close();toast('Welcome, '+user.name)});
+
+async function load(){
+  const p=new URLSearchParams({search:$('#search').value,category:$('#category').value,sale_type:$('#saleType').value,sort:$('#sort').value});
+  [...p].forEach(([k,v])=>!v&&p.delete(k));
+  const items=await api('/products?'+p);
+  $('#grid').innerHTML=items.length?items.map(x=>`<article class="card" tabindex="0" onclick="openProduct('${x.id}')" onkeydown="if(event.key==='Enter')openProduct('${x.id}')">
+    <div class="img" style="background-image:url('${esc(x.image_url)}')"></div><div class="b">
+    <span class="tag ${x.sale_type}">${x.sale_type==='fixed'?'Fixed price':x.sale_type==='flash'?'Flash sale':'Auction'}</span>
+    <strong>${esc(x.title)}</strong><span class="mute">${esc(x.store_name)}${x.rating?' · '+x.rating+'/5':''}</span>
+    <span class="price">${money(x.sale_type==='auction'?(x.highest_bid||x.price):x.current_price)}</span></div></article>`).join(''):'<p class="mute">No products match yet. Try fewer filters.</p>'}
+function renderCategoryTiles(categories){
+  const photos={
+    home:'https://images.unsplash.com/photo-1494438639946-1ebd1d20bf85?auto=format&fit=crop&w=800&q=80',
+    fashion:'https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=800&q=80',
+    electronics:'https://images.unsplash.com/photo-1498049794561-7780e7231661?auto=format&fit=crop&w=800&q=80',
+    beauty:'https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?auto=format&fit=crop&w=800&q=80',
+    default:'https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=800&q=80'
+  };
+  const photoFor=name=>{
+    const category=name.toLowerCase();
+    if(category.includes('home'))return photos.home;
+    if(category.includes('fashion')||category.includes('cloth'))return photos.fashion;
+    if(category.includes('electronic')||category.includes('tech'))return photos.electronics;
+    if(category.includes('beauty')||category.includes('wellness'))return photos.beauty;
+    return photos.default;
+  };
+  const container=$('#categoryTiles');
+  container.replaceChildren(...categories.slice(0,4).map((category,index)=>{
+    const tile=document.createElement('button');
+    tile.type='button';
+    tile.className='category-tile';
+    tile.style.backgroundImage=`url("${photoFor(category.name)}")`;
+    const label=document.createElement('span');
+    label.textContent=category.name;
+    tile.append(label);
+    tile.addEventListener('click',()=>{$('#category').value=category.id;load()});
+    return tile;
+  }));
+}
+const starterCategories=[{id:'3',name:'Home'},{id:'2',name:'Fashion'},{id:'1',name:'Electronics'},{id:'5',name:'Beauty'}];
+let availableCategories=starterCategories;
+$('#category').innerHTML+=starterCategories.map(x=>`<option value="${x.id}">${x.name}</option>`).join('');
+renderCategoryTiles(starterCategories);
+window.shopCategory=guard(async name=>{
+  const category=availableCategories.find(item=>item.name.toLowerCase()===name.toLowerCase());
+  $('#category').value=category?category.id:'';
+  $('#search').value='';
+  await load();
+  $('#catalog').scrollIntoView({behavior:'smooth'});
+});
+const previewVideos=[...document.querySelectorAll('.video-card video')];
+const previewMotion=matchMedia('(prefers-reduced-motion: no-preference)');
+if('IntersectionObserver' in window){
+  const videoObserver=new IntersectionObserver(entries=>entries.forEach(entry=>{
+    const video=entry.target;
+    if(entry.isIntersecting){
+      if(previewMotion.matches)video.play().catch(()=>{});
+    }else{
+      video.pause();
+    }
+  }),{threshold:.35});
+  previewVideos.forEach(video=>videoObserver.observe(video));
+}
+let t;$('#search').oninput=()=>{clearTimeout(t);t=setTimeout(guard(load),300)};['category','saleType','sort'].forEach(i=>$('#'+i).onchange=guard(load));
+
+window.openProduct=guard(async id=>{const p=await api('/products/'+id);
+  $('#dlgBody').innerHTML=`<h2>${esc(p.title)}</h2><div class="mute">Sold by ${esc(p.store_name)} · ${p.stock} in stock</div><p>${esc(p.description)}</p>
+  ${p.tiers.length?'<div><strong>Bulk prices</strong>'+p.tiers.map(t=>`<div class="row"><span>${t.min_qty}+ units</span><span>${money(t.unit_price)} each</span></div>`).join('')+'</div>':''}
+  ${p.sale_type==='auction'?`<div class="row"><input id="bid" type="number" step="0.01" placeholder="Your bid"><button class="primary" onclick="bid('${p.id}')">Place bid</button></div><div class="mute">Ends ${new Date(p.ends_at).toLocaleString()}</div>`
+  :`<div class="row"><input id="qty" type="number" min="1" value="1" style="width:5rem" aria-label="Quantity"><button class="primary" onclick="addCart('${p.id}')">Add to cart</button></div>`}
+  <h3>Reviews</h3>${p.reviews.map(r=>`<div><strong>${r.rating}/5</strong> ${esc(r.name)}: ${esc(r.body)}</div>`).join('')||'<span class="mute">No reviews yet.</span>'}`;dlg.showModal()});
+window.addCart=guard(async id=>{if(!user)return toast('Sign in to add items');await api('/cart',{body:{product_id:id,qty:+$('#qty').value}});toast('Added to cart');dlg.close()});
+window.bid=guard(async id=>{if(!user)return toast('Sign in to bid');await api('/products/'+id+'/bids',{body:{amount:$('#bid').value}});toast('Bid placed');dlg.close();load()});
+
+$('#cartBtn').onclick=guard(async()=>{if(!user)return toast('Sign in to see your cart');const c=await api('/cart');
+  const total=c.reduce((a,i)=>a+i.price*i.qty,0);
+  $('#dlgBody').innerHTML=`<h2>Your cart</h2>`+(c.map(i=>`<div class="row"><span>${esc(i.title)} × ${i.qty}</span><span>${money(i.price*i.qty)} <button onclick="rm('${i.id}')" aria-label="Remove">×</button></span></div>`).join('')||'<p class="mute">Your cart is empty. Add something from the catalog.</p>')+
+  (c.length?`<div class="row"><strong>Total (before discounts)</strong><strong>${money(total)}</strong></div><input id="coupon" placeholder="Coupon code">
+  <select id="pay"><option value="card">Card</option><option value="mobile_money">Mobile money</option><option value="cod">Cash on delivery</option></select>
+  <button class="primary" onclick="checkout()">Place order</button><div class="mute">Payment is held until you confirm delivery. One order is created per seller.</div>`:'');dlg.showModal()});
+window.rm=guard(async id=>{await api('/cart/'+id,{method:'DELETE'});$('#cartBtn').click()});
+window.checkout=guard(async()=>{const d=await api('/checkout',{body:{coupon:$('#coupon').value,payment_method:$('#pay').value}});dlg.close();toast(d.orders.length+' order(s) placed')});
+$('#ordersBtn').onclick=guard(async()=>{if(!user)return toast('Sign in to see your orders');const o=await api('/orders');
+  $('#dlgBody').innerHTML='<h2>Your orders</h2>'+(o.map(x=>`<div class="row"><span>${esc(x.store_name)} · ${x.status}</span><span>${money(x.total)} ${x.status==='shipped'?`<button onclick="confirmOrder('${x.id}')">Confirm delivery</button>`:''}</span></div>`).join('')||'<p class="mute">No orders yet.</p>');dlg.showModal()});
+window.confirmOrder=guard(async id=>{await api('/orders/'+id+'/confirm',{method:'POST',body:{}});toast('Delivery confirmed');$('#ordersBtn').click()});
+
+guard(async()=>{syncAuth();const c=await api('/categories');availableCategories=c;$('#category').innerHTML='<option value="">All categories</option>'+c.map(x=>`<option value="${x.id}">${esc(x.name)}</option>`).join('');renderCategoryTiles(c);await load()})();
+</script>
+</body></html>
